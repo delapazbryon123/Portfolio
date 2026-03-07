@@ -299,12 +299,10 @@ main {
 .hero-image-wrap {
     position: relative;
     flex: 0 0 auto;
-    width: min(480px, 44vw);
+    width: min(420px, 40vw);
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
-    align-self: flex-end;
-    margin-bottom: -6rem;
 }
 
 .hero-canvas {

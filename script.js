@@ -67,7 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     const img = frames[currentFrame];
                     if (img && img.complete) {
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        // Crop center 720x720 from the 1280x720 source to isolate the robot
+                        const srcX = (1280 - 720) / 2; // = 280
+                        ctx.drawImage(img, srcX, 0, 720, 720, 0, 0, 720, 720);
                     }
                     currentFrame = (currentFrame + 1) % TOTAL_FRAMES;
                     lastTime = timestamp;
