@@ -376,8 +376,17 @@ main {
 }
 
 /* Automations Section */
-.project-card {
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
     margin-top: 2rem;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .project-tag {
@@ -404,6 +413,8 @@ main {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1rem;
 }
 
 .project-tech span {
@@ -415,6 +426,38 @@ main {
 }
 
 /* Experience Timeline */
+.company {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--accent-yellow);
+    font-weight: 500;
+    margin-top: 0.2rem;
+    opacity: 0.9;
+}
+
+.role-overview {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border-left: 2px solid var(--accent-yellow);
+    background: rgba(250, 204, 21, 0.04);
+    border-radius: 0 0.3rem 0.3rem 0;
+}
+
+.exp-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.exp-category h4 {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
 .timeline {
     position: relative;
     max-width: 800px;
@@ -511,6 +554,53 @@ main {
     background: rgba(250, 204, 21, 0.1);
     border-color: var(--accent-yellow);
     transform: translateY(-2px);
+}
+
+/* Certifications */
+.certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.cert-issuer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.cert-badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.cert-badge.magic {
+    background: rgba(250, 204, 21, 0.15);
+    color: var(--accent-yellow);
+    border: 1px solid rgba(250, 204, 21, 0.4);
+}
+
+.cert-badge.google {
+    background: rgba(66, 133, 244, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(66, 133, 244, 0.4);
+}
+
+.cert-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.cert-list li {
+    font-size: 0.95rem;
+    color: var(--text-light);
 }
 
 /* Contact */
