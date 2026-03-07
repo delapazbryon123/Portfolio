@@ -67,13 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const img = frames[currentFrame];
                     if (img && img.complete) {
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        // Draw circular clipped version
-                        ctx.save();
-                        ctx.beginPath();
-                        ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 2, 0, Math.PI * 2);
-                        ctx.clip();
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        ctx.restore();
                     }
                     currentFrame = (currentFrame + 1) % TOTAL_FRAMES;
                     lastTime = timestamp;
