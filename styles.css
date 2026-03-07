@@ -284,13 +284,58 @@ main {
 
 /* Hero Section */
 .hero {
-    min-height: 80vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
 }
 
 .hero-content {
-    max-width: 800px;
+    flex: 1;
+    min-width: 0;
+}
+
+.hero-image-wrap {
+    position: relative;
+    flex: 0 0 auto;
+    width: min(440px, 42vw);
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-glow-ring {
+    position: absolute;
+    inset: -24px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(250, 204, 21, 0.2) 0%, transparent 70%);
+    animation: pulseGlow 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.06);
+    }
+}
+
+.hero-canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid rgba(250, 204, 21, 0.3);
+    box-shadow: 0 0 50px rgba(250, 204, 21, 0.12), 0 0 100px rgba(250, 204, 21, 0.06);
+    display: block;
 }
 
 .eyebrow {
@@ -301,16 +346,16 @@ main {
 }
 
 .hero-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
     font-weight: 800;
     margin-bottom: 1.5rem;
 }
 
 .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--text-main);
     margin-bottom: 2.5rem;
-    max-width: 700px;
+    max-width: 600px;
 }
 
 .hero-actions {
@@ -678,6 +723,25 @@ footer {
 }
 
 /* Mobile Responsive Adjustments */
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        min-height: auto;
+        padding-top: 7rem;
+        padding-bottom: 4rem;
+    }
+
+    .hero-image-wrap {
+        width: min(300px, 75vw);
+        order: -1;
+    }
+
+    .hero-subtitle {
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     .nav-links {
         display: none;
@@ -689,6 +753,7 @@ footer {
 
     .hero-actions {
         flex-direction: column;
+        align-items: center;
     }
 
     .hero-actions a {
