@@ -299,7 +299,7 @@ main {
 .hero-image-wrap {
     position: relative;
     flex: 0 0 auto;
-    width: min(420px, 40vw);
+    width: min(560px, 48vw);
     display: flex;
     align-items: center;
     justify-content: center;
