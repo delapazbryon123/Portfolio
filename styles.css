@@ -300,12 +300,11 @@ main {
 
 .hero-image-wrap {
     position: absolute;
-    right: -5%;
+    right: -10%;
     top: 50%;
     transform: translateY(-46%);
-    /* Slightly offset to visually center the robot perfectly */
-    width: 65vw;
-    max-width: 950px;
+    width: 50vw;
+    max-width: 750px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
