@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automation Workflow Designs | Bryon V. Dela Paz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050810;
+      --bg2: #090d1a;
+      --card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --yellow: #facc15;
+      --yellow-glow: rgba(250,204,21,0.15);
+      --blue: #3b82f6;
+      --blue-dim: rgba(59,130,246,0.15);
+      --green: #22c55e;
+      --green-dim: rgba(34,197,94,0.12);
+      --purple: #a855f7;
+      --purple-dim: rgba(168,85,247,0.12);
+      --red: #ef4444;
+      --red-dim: rgba(239,68,68,0.12);
+      --orange: #f97316;
+      --text: rgba(255,255,255,0.85);
+      --text-dim: rgba(255,255,255,0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0 0 6rem;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(250,204,21,0.07) 0%, transparent 70%);
+    }
+    .page-header .eyebrow {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+      color: var(--yellow); text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .page-header h1 {
+      font-size: clamp(1.8rem,4vw,3rem); font-weight: 800;
+      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.6) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 0.75rem;
+    }
+    .page-header p {
+      color: var(--text-dim); font-size: 1rem; max-width: 600px; margin: 0 auto;
+    }
+
+    /* ── Tab Nav ── */
+    .tab-nav {
+      display: flex; justify-content: center; gap: 0.5rem;
+      padding: 2rem 1rem 0; flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 0.6rem 1.6rem; border-radius: 100px;
+      border: 1px solid var(--border); background: var(--card);
+      color: var(--text-dim); font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; transition: all 0.25s; font-family: 'Inter', sans-serif;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+    .tab-btn.active {
+      background: var(--yellow); border-color: var(--yellow);
+      color: #000; box-shadow: 0 0 20px rgba(250,204,21,0.25);
+    }
+
+    /* ── Tab Content ── */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ── Section wrapper ── */
+    .wf-section {
+      max-width: 1100px; margin: 0 auto; padding: 3rem 2rem;
+    }
+    .wf-title {
+      font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem;
+    }
+    .wf-subtitle {
+      color: var(--text-dim); font-size: 0.92rem; margin-bottom: 3rem;
+      max-width: 680px; line-height: 1.6;
+    }
+
+    /* ── Flow Grid ── */
+    .flow-grid {
+      display: flex; flex-direction: column; gap: 0;
+    }
+
+    /* ── Flow Row ── */
+    .flow-row {
+      display: flex; align-items: flex-start; gap: 0;
+      position: relative;
+    }
+    .flow-row.col { flex-direction: column; align-items: center; }
+
+    /* ── Node ── */
+    .node {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--card);
+      padding: 1.2rem 1.4rem;
+      min-width: 190px;
+      max-width: 240px;
+      flex-shrink: 0;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+      backdrop-filter: blur(10px);
+    }
+    .node:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .node.yellow { border-color: rgba(250,204,21,0.35); box-shadow: 0 0 20px rgba(250,204,21,0.07); }
+    .node.blue   { border-color: rgba(59,130,246,0.35);  box-shadow: 0 0 20px rgba(59,130,246,0.07); }
+    .node.green  { border-color: rgba(34,197,94,0.35);   box-shadow: 0 0 20px rgba(34,197,94,0.07); }
+    .node.purple { border-color: rgba(168,85,247,0.35);  box-shadow: 0 0 20px rgba(168,85,247,0.07); }
+    .node.red    { border-color: rgba(239,68,68,0.35);   box-shadow: 0 0 20px rgba(239,68,68,0.07); }
+    .node.orange { border-color: rgba(249,115,22,0.35);  box-shadow: 0 0 20px rgba(249,115,22,0.07); }
+
+    .node-icon {
+      font-size: 1.4rem; margin-bottom: 0.4rem;
+    }
+    .node-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 0.2rem;
+    }
+    .node.yellow .node-label { color: var(--yellow); }
+    .node.blue   .node-label { color: var(--blue); }
+    .node.green  .node-label { color: var(--green); }
+    .node.purple .node-label { color: var(--purple); }
+    .node.red    .node-label { color: var(--red); }
+    .node.orange .node-label { color: var(--orange); }
+
+    .node-title {
+      font-size: 0.88rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem;
+    }
+    .node-desc {
+      font-size: 0.72rem; color: var(--text-dim); line-height: 1.4;
+    }
+    .node-tool {
+      display: inline-block; margin-top: 0.5rem; padding: 0.15rem 0.6rem;
+      border-radius: 20px; font-size: 0.65rem; font-weight: 600;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-dim);
+    }
+
+    /* ── Arrow ── */
+    .arrow-h {
+      display: flex; align-items: center;
+      padding: 0 0.5rem; color: var(--text-dim);
+      font-size: 1.1rem; flex-shrink: 0; align-self: center; min-width: 36px;
+      justify-content: center;
+    }
+    .arrow-v {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 0.3rem 0; color: var(--text-dim); font-size: 1.1rem;
+      width: 100%;
+    }
+    .arrow-v span { font-size: 0.65rem; color: var(--text-dim); margin-top: 0.1rem; }
+
+    /* ── Branch ── */
+    .branch-row {
+      display: flex; gap: 1.5rem; align-items: flex-start;
+      position: relative; justify-content: center;
+    }
+    .branch-col {
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+    }
+    .branch-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 0.2rem 0.7rem; border-radius: 20px; margin-bottom: 0.4rem;
+    }
+    .branch-label.yes { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+    .branch-label.no  { background: var(--red-dim);   color: var(--red);   border: 1px solid rgba(239,68,68,0.25); }
+
+    /* ── Decision Diamond ── */
+    .diamond-wrap {
+      display: flex; justify-content: center; padding: 1rem 0;
+    }
+    .diamond {
+      width: 110px; height: 110px;
+      background: rgba(250,204,21,0.08);
+      border: 1px solid rgba(250,204,21,0.35);
+      transform: rotate(45deg);
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 8px;
+    }
+    .diamond-inner {
+      transform: rotate(-45deg);
+      text-align: center;
+    }
+    .diamond-inner .diamond-icon { font-size: 1.3rem; display: block; }
+    .diamond-inner .diamond-text {
+      font-size: 0.68rem; font-weight: 700; color: var(--yellow);
+      display: block; margin-top: 0.2rem;
+    }
+
+    /* ── Layer Heading ── */
+    .layer-heading {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin: 2.5rem 0 1.2rem;
+    }
+    .layer-badge {
+      padding: 0.25rem 0.9rem; border-radius: 20px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .layer-badge.yellow { background: var(--yellow-glow); color: var(--yellow); border: 1px solid rgba(250,204,21,0.25); }
+    .layer-badge.blue   { background: var(--blue-dim);   color: var(--blue);   border: 1px solid rgba(59,130,246,0.25); }
+    .layer-badge.green  { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(34,197,94,0.25); }
+    .layer-badge.purple { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(168,85,247,0.25); }
+
+    .layer-title {
+      font-size: 0.9rem; font-weight: 700; color: #fff;
+    }
+    .layer-line {
+      flex: 1; height: 1px; background: var(--border);
+    }
+
+    /* ── Flow Lane (horizontal scroll row) ── */
+    .flow-lane {
+      display: flex; align-items: center; gap: 0;
+      flex-wrap: wrap; gap: 0;
+    }
+    @media (max-width: 700px) {
+      .flow-lane { flex-direction: column; align-items: flex-start; }
+      .arrow-h { transform: rotate(90deg); padding: 0.3rem 0; }
+      .node { max-width: 100%; min-width: unset; width: 100%; }
+    }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+      margin: 2rem 0 0; padding: 1rem 1.2rem;
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.72rem; color: var(--text-dim);
+    }
+    .legend-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .legend-dot.yellow { background: var(--yellow); }
+    .legend-dot.blue   { background: var(--blue); }
+    .legend-dot.green  { background: var(--green); }
+    .legend-dot.purple { background: var(--purple); }
+    .legend-dot.red    { background: var(--red); }
+    .legend-dot.orange { background: var(--orange); }
+
+    /* ── Summary Cards ── */
+    .summary-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem; margin-top: 2rem;
+    }
+    .summary-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.2rem;
+    }
+    .summary-card .s-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem; }
+    .summary-card .s-value { font-size: 1.1rem; font-weight: 800; color: #fff; }
+    .summary-card .s-desc  { font-size: 0.72rem; color: var(--text-dim); margin-top: 0.2rem; }
+  </style>
+</head>
+<body>
+
+<!-- ── Page Header ── -->
+<div class="page-header">
+  <div class="eyebrow">Bryon V. Dela Paz · AI Operations Specialist</div>
+  <h1>Automation Workflow Designs</h1>
+  <p>Visual architecture for three enterprise-grade AI automation systems designed for real operational use.</p>
+</div>
+
+<!-- ── Tabs ── -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('q1', this)">Q1 · Legal &amp; Compliance AI</button>
+  <button class="tab-btn" onclick="switchTab('q2', this)">Q2 · Marketplace Operations</button>
+  <button class="tab-btn" onclick="switchTab('q3', this)">Q3 · Accounting &amp; Payment</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     Q1 — LEGAL & COMPLIANCE MONITORING
+═══════════════════════════════════════════════════════════ -->
+<div id="q1" class="tab-content active">
+<div class="wf-section">
+  <div class="wf-title">Legal &amp; Compliance Monitoring Workflow</div>
+  <div class="wf-subtitle">An AI-assisted pipeline that monitors regulatory changes globally, auto-drafts legal document updates, routes them through a human approval gate, and publishes with full audit history.</div>
+
+  <!-- LAYER 1 -->
+  <div class="layer-heading">
+    <div class="layer-badge yellow">Layer 1</div>
+    <div class="layer-title">Regulatory Monitoring (Daily Schedule)</div>
+    <div class="layer-line"></div>
+  </div>
+
+  <div class="flow-lane">
+    <div class="node yellow">
+      <div class="node-icon">⏰</div>
+      <div class="node-label">Trigger</div>
+      <div class="node-title">n8n Schedule</div>
+      <div class="node-desc">Fires every 24 hours at 7am UTC</div>
+      <span class="node-tool">n8n · Cron Node</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node blue">
+      <div class="node-icon">🔍</div>
+      <div class="node-label">Search</div>
+      <div class="node-title">Regulatory Monitor</div>
+      <div class="node-desc">Queries GDPR, CCPA, PDPA sources via Tavily Search API</div>
+      <span class="node-tool">Tavily / Perplexity API</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node blue">
+      <div class="node-icon">🧠</div>
+      <div class="node-label">AI Analysis</div>
+      <div class="node-title">Change Detection</div>
+      <div class="node-desc">GPT-4o compares new content vs. stored baseline — flags meaningful changes</div>
+      <span class="node-tool">OpenAI GPT-4o</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node yellow">
+      <div class="node-icon">📊</div>
+      <div class="node-label">Storage</div>
+      <div class="node-title">Update Baseline</div>
+      <div class="node-desc">Stores scrape results &amp; diff metadata as new baseline</div>
+      <span class="node-tool">Google Sheets</span>
+    </div>
+  </div>
+
+  <div class="arrow-v">↓ <span>Change detected</span></div>
+
+  <!-- LAYER 2 -->
+  <div class="layer-heading">
+    <div class="layer-badge blue">Layer 2</div>
+    <div class="layer-title">AI Draft Generation</div>
+    <div class="layer-line"></div>
+  </div>
+
+  <div class="flow-lane">
+    <div class="node blue">
+      <div class="node-icon">📂</div>
+      <div class="node-label">Retrieve</div>
+      <div class="node-title">Fetch Document</div>
+      <div class="node-desc">Pulls current T&amp;C / Privacy Policy from document store</div>
+      <span class="node-tool">Google Drive API</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node purple">
+      <div class="node-icon">✍️</div>
+      <div class="node-label">AI Drafting</div>
+      <div class="node-title">Generate Updated Draft</div>
+      <div class="node-desc">GPT-4o identifies affected clauses &amp; produces suggested revisions with [CHANGE] tags</div>
+      <span class="node-tool">OpenAI GPT-4o</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node blue">
+      <div class="node-icon">💾</div>
+      <div class="node-label">Version Control</div>
+      <div class="node-title">Save Versioned Draft</div>
+      <div class="node-desc">Saves as T&amp;C_v1.4_Draft_2026-03-22.docx, auto-timestamped</div>
+      <span class="node-tool">Google Drive</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node yellow">
+      <div class="node-icon">📣</div>
+      <div class="node-label">Notify</div>
+      <div class="node-title">Slack Alert</div>
+      <div class="node-desc">Posts to #legal-review with draft link + change summary</div>
+      <span class="node-tool">Slack API</span>
+    </div>
+  </div>
+
+  <div class="arrow-v">↓ <span>Legal reviewer receives notification</span></div>
+
+  <!-- LAYER 3 -->
+  <div class="layer-heading">
+    <div class="layer-badge green">Layer 3</div>
+    <div class="layer-title">Human Review Gate &amp; Publishing</div>
+    <div class="layer-line"></div>
+  </div>
+
+  <!-- Decision diamond -->
+  <div class="diamond-wrap">
+    <div class="diamond">
+      <div class="diamond-inner">
+        <span class="diamond-icon">⚖️</span>
+        <span class="diamond-text">Legal Review</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="branch-row" style="margin-top: 1rem;">
+    <!-- APPROVED branch -->
+    <div class="branch-col">
+      <div class="branch-label yes">✅ APPROVED</div>
+      <div class="arrow-v">↓</div>
+      <div class="node green">
+        <div class="node-icon">📤</div>
+        <div class="node-label">Publish</div>
+        <div class="node-title">Move to Published</div>
+        <div class="node-desc">Moves draft to Published folder, triggers CMS/portal webhook</div>
+        <span class="node-tool">Google Drive + CMS API</span>
+      </div>
+      <div class="arrow-v">↓</div>
+      <div class="node green">
+        <div class="node-icon">📋</div>
+        <div class="node-label">Audit</div>
+        <div class="node-title">Log to Audit Sheet</div>
+        <div class="node-desc">Records: change source, reviewer, approval time, version published</div>
+        <span class="node-tool">Google Sheets</span>
+      </div>
+    </div>
+    <!-- REVISION branch -->
+    <div class="branch-col">
+      <div class="branch-label no">🔁 REQUEST REVISION</div>
+      <div class="arrow-v">↓</div>
+      <div class="node red">
+        <div class="node-icon">📝</div>
+        <div class="node-label">Feedback Loop</div>
+        <div class="node-title">Capture Comments</div>
+        <div class="node-desc">Reviewer's notes captured from Slack thread, routed back to GPT-4o for re-draft</div>
+        <span class="node-tool">Slack → n8n → GPT-4o</span>
+      </div>
+      <div class="arrow-v">↓</div>
+      <div class="node red" style="border-style: dashed;">
+        <div class="node-icon">🔄</div>
+        <div class="node-label">Loop Back</div>
+        <div class="node-title">Returns to Layer 2</div>
+        <div class="node-desc">New draft generated → new Slack notification → review cycle repeats</div>
+        <span class="node-tool">n8n Loop Node</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="s-label">Monitoring Frequency</div>
+      <div class="s-value">Daily</div>
+      <div class="s-desc">Every 24h + on-demand trigger</div>
+    </div>
+    <div class="summary-card">
+      <div class="s-label">Human Gate</div>
+      <div class="s-value">100% Required</div>
+      <div class="s-desc">No document publishes without legal approval</div>
+    </div>
+    <div class="summary-card">
+      <div class="s-label">Version History</div>
+      <div class="s-value">Full Audit Trail</div>
+      <div class="s-desc">Google Drive + Sheets dual record</div>
+    </div>
+    <div class="summary-card">
+      <div class="s-label">Jurisdictions</div>
+      <div class="s-value">Global</div>
+      <div class="s-desc">GDPR, CCPA, PDPA, and more</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot yellow"></div> Trigger / Storage</div>
+    <div class="legend-item"><div class="legend-dot blue"></div> Monitoring / AI</div>
+    <div class="legend-item"><div class="legend-dot purple"></div> AI Drafting (GPT-4o)</div>
+    <div class="legend-item"><div class="legend-dot green"></div> Approval / Publish</div>
+    <div class="legend-item"><div class="legend-dot red"></div> Revision Loop</div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     Q2 — MARKETPLACE OPERATIONS AUTOMATION
+═══════════════════════════════════════════════════════════ -->
+<div id="q2" class="tab-content">
+<div class="wf-section">
+  <div class="wf-title">Marketplace Operations Automation</div>
+  <div class="wf-subtitle">Four interconnected automation systems covering professional onboarding, identity verification, customer support, and internal reporting for a two-sided marketplace platform.</div>
+
+  <!-- TRACK A: Onboarding -->
+  <div class="layer-heading">
+    <div class="layer-badge yellow">Track A</div>
+    <div class="layer-title">Professional Onboarding</div>
+    <div class="layer-line"></div>
+  </div>
+
+  <div class="flow-lane">
+    <div class="node yellow">
+      <div class="node-icon">📋</div>
+      <div class="node-label">Trigger</div>
+      <div class="node-title">Form Submission</div>
+      <div class="node-desc">Professional submits onboarding form with profile &amp; document upload</div>
+      <span class="node-tool">Typeform / Tally</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node yellow">
+      <div class="node-icon">⚡</div>
+      <div class="node-label">Webhook</div>
+      <div class="node-title">n8n Receives</div>
+      <div class="node-desc">Webhook fires instantly, data parsed and normalized</div>
+      <span class="node-tool">n8n Webhook Node</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node blue">
+      <div class="node-icon">👤</div>
+      <div class="node-label">CRM</div>
+      <div class="node-title">Create HubSpot Contact</div>
+      <div class="node-desc">Contact created with status "Pending Verification"</div>
+      <span class="node-tool">HubSpot API</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node blue">
+      <div class="node-icon">🗃️</div>
+      <div class="node-label">Database</div>
+      <div class="node-title">Create DB Record</div>
+      <div class="node-desc">Professional profile stored with all fields &amp; verification status</div>
+      <span class="node-tool">Airtable / Supabase</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node green">
+      <div class="node-icon">✉️</div>
+      <div class="node-label">Email</div>
+      <div class="node-title">Welcome Email</div>
+      <div class="node-desc">Personalized onboarding email with next-step instructions sent instantly</div>
+      <span class="node-tool">SendGrid API</span>
+    </div>
+  </div>
+
+  <!-- TRACK B: Verification -->
+  <div class="layer-heading">
+    <div class="layer-badge blue">Track B</div>
+    <div class="layer-title">Identity &amp; Credential Verification (KYC)</div>
+    <div class="layer-line"></div>
+  </div>
+
+  <div class="flow-lane">
+    <div class="node blue">
+      <div class="node-icon">🪪</div>
+      <div class="node-label">KYC</div>
+      <div class="node-title">Submit to Verifier</div>
+      <div class="node-desc">n8n calls Onfido/Stripe Identity with uploaded ID document</div>
+      <span class="node-tool">Onfido / Stripe Identity</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node blue">
+      <div class="node-icon">⏳</div>
+      <div class="node-label">Async Wait</div>
+      <div class="node-title">Await Callback</div>
+      <div class="node-desc">n8n waits for verification webhook result (30s–5min)</div>
+      <span class="node-tool">n8n Wait Node</span>
+    </div>
+    <div class="arrow-h">→</div>
+
+    <!-- mini decision -->
+    <div style="display:flex; flex-direction:column; align-items:center; gap:0.5rem;">
+      <div class="diamond" style="width:80px;height:80px;">
+        <div class="diamond-inner">
+          <span class="diamond-icon" style="font-size:1rem;">❓</span>
+          <span class="diamond-text" style="font-size:0.6rem;">Verified?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="branch-row" style="margin-top: 0.75rem;">
+    <div class="branch-col">
+      <div class="branch-label yes">✅ VERIFIED</div>
+      <div class="arrow-v">↓</div>
+      <div class="node green">
+        <div class="node-icon">🔓</div>
+        <div class="node-label">Activate</div>
+        <div class="node-title">Update to Active</div>
+        <div class="node-desc">HubSpot &amp; DB updated to "Verified/Active" — profile published on platform</div>
+        <span class="node-tool">HubSpot + Airtable APIs</span>
+      </div>
+      <div class="arrow-v">↓</div>
+      <div class="node green">
+        <div class="node-icon">🎉</div>
+        <div class="node-label">Notify</div>
+        <div class="node-title">Congratulations Email + Slack</div>
+        <div class="node-desc">Welcome aboard email sent + ops team notified in #new-professionals</div>
+        <span class="node-tool">SendGrid + Slack</span>
+      </div>
+    </div>
+    <div class="branch-col">
+      <div class="branch-label no">❌ REJECTED</div>
+      <div class="arrow-v">↓</div>
+      <div class="node red">
+        <div class="node-icon">📧</div>
+        <div class="node-label">Re-Submit</div>
+        <div class="node-title">Rejection Email</div>
+        <div class="node-desc">Auto-email explains what was rejected and how to resubmit</div>
+        <span class="node-tool">SendGrid API</span>
+      </div>
+      <div class="arrow-v">↓</div>
+      <div class="node red">
+        <div class="node-icon">🔔</div>
+        <div class="node-label">Alert</div>
+        <div class="node-title">Ops Alert</div>
+        <div class="node-desc">Slack alert with rejection reason for manual follow-up if needed</div>
+        <span class="node-tool">Slack API</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRACK C: Support -->
+  <div class="layer-heading">
+    <div class="layer-badge purple">Track C</div>
+    <div class="layer-title">Customer Support Automation</div>
+    <div class="layer-line"></div>
+  </div>
+
+  <div class="flow-lane">
+    <div class="node purple">
+      <div class="node-icon">🎫</div>
+      <div class="node-label">Inbound</div>
+      <div class="node-title">New Support Ticket</div>
+      <div class="node-desc">Customer submits enquiry via chat, email, or form</div>
+      <span class="node-tool">Freshdesk / Intercom</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node purple">
+      <div class="node-icon">🧠</div>
+      <div class="node-label">AI Classify</div>
+      <div class="node-title">GPT-4o Triage</div>
+      <div class="node-desc">Auto-categorizes ticket: billing, tech issue, complaint, general query</div>
+      <span class="node-tool">OpenAI GPT-4o</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node purple">
+      <div class="node-icon">📬</div>
+      <div class="node-label">Route</div>
+      <div class="node-title">Tag &amp; Assign</div>
+      <div class="node-desc">Ticket tagged, assigned to correct team member, priority set</div>
+      <span class="node-tool">Freshdesk API</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node green">
+      <div class="node-icon">💬</div>
+      <div class="node-label">AI Draft Reply</div>
+      <div class="node-title">First Response</div>
+      <div class="node-desc">GPT-4o drafts personalized reply for agent to review &amp; send</div>
+      <span class="node-tool">OpenAI + Freshdesk</span>
+    </div>
+  </div>
+
+  <!-- TRACK D: Reporting -->
+  <div class="layer-heading">
+    <div class="layer-badge green">Track D</div>
+    <div class="layer-title">Internal Reporting &amp; Monitoring</div>
+    <div class="layer-line"></div>
+  </div>
+
+  <div class="flow-lane">
+    <div class="node green">
+      <div class="node-icon">⏰</div>
+      <div class="node-label">Nightly</div>
+      <div class="node-title">Schedule Trigger</div>
+      <div class="node-desc">Fires at 11pm daily to aggregate all operational data</div>
+      <span class="node-tool">n8n Cron</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node blue">
+      <div class="node-icon">📥</div>
+      <div class="node-label">Pull Data</div>
+      <div class="node-title">Aggregate Sources</div>
+      <div class="node-desc">Pulls from HubSpot (signups), Airtable (verifications), Freshdesk (tickets)</div>
+      <span class="node-tool">Multiple APIs</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node green">
+      <div class="node-icon">📊</div>
+      <div class="node-label">Dashboard</div>
+      <div class="node-title">Update Sheets → Looker</div>
+      <div class="node-desc">Data written to Google Sheets, auto-synced to Looker Studio dashboard</div>
+      <span class="node-tool">Sheets + Looker Studio</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node yellow">
+      <div class="node-icon">📧</div>
+      <div class="node-label">Weekly</div>
+      <div class="node-title">Summary Email</div>
+      <div class="node-desc">AI-generated ops summary emailed to leadership every Monday 9am</div>
+      <span class="node-tool">GPT-4o + SendGrid</span>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="s-label">Onboarding Time</div>
+      <div class="s-value">~5 min</div>
+      <div class="s-desc">Form submission to welcome email</div>
+    </div>
+    <div class="summary-card">
+      <div class="s-label">KYC Verification</div>
+      <div class="s-value">Automated</div>
+      <div class="s-desc">Onfido / Stripe Identity API</div>
+    </div>
+    <div class="summary-card">
+      <div class="s-label">Support Triage</div>
+      <div class="s-value">Instant</div>
+      <div class="s-desc">GPT-4o classifies &amp; routes on arrival</div>
+    </div>
+    <div class="summary-card">
+      <div class="s-label">Error Handling</div>
+      <div class="s-value">3x Retry</div>
+      <div class="s-desc">Exponential backoff + Slack alerts</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     Q3 — ACCOUNTING & PAYMENT AUTOMATION
+═══════════════════════════════════════════════════════════ -->
+<div id="q3" class="tab-content">
+<div class="wf-section">
+  <div class="wf-title">Accounting &amp; Payment Automation</div>
+  <div class="wf-subtitle">AI-assisted financial reconciliation connecting Stripe payments to Xero accounting, with automated discrepancy detection, intelligent classification, and full audit trails.</div>
+
+  <!-- REAL-TIME TRACK -->
+  <div class="layer-heading">
+    <div class="layer-badge yellow">Real-Time</div>
+    <div class="layer-title">Payment Event Processing (Stripe Webhooks)</div>
+    <div class="layer-line"></div>
+  </div>
+
+  <div class="flow-lane">
+    <div class="node yellow">
+      <div class="node-icon">💳</div>
+      <div class="node-label">Trigger</div>
+      <div class="node-title">Stripe Webhook</div>
+      <div class="node-desc">Fires on: payment_intent.succeeded, transfer.created, payment_failed, invoice.paid</div>
+      <span class="node-tool">Stripe Webhooks → n8n</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node yellow">
+      <div class="node-icon">⚡</div>
+      <div class="node-label">Route</div>
+      <div class="node-title">Event Router</div>
+      <div class="node-desc">n8n Switch node routes each event type to its dedicated processing branch</div>
+      <span class="node-tool">n8n Switch Node</span>
+    </div>
+  </div>
+
+  <div class="branch-row" style="margin-top:1rem; gap:1rem; flex-wrap:wrap;">
+    <div class="branch-col">
+      <div class="branch-label yes" style="font-size:0.6rem;">payment_intent.succeeded</div>
+      <div class="arrow-v">↓</div>
+      <div class="node green" style="min-width:160px; max-width:180px;">
+        <div class="node-icon">📄</div>
+        <div class="node-label">Xero</div>
+        <div class="node-title">Create Invoice</div>
+        <div class="node-desc">Auto-creates Xero invoice linked to Stripe payment ID</div>
+        <span class="node-tool">Xero API</span>
+      </div>
+    </div>
+    <div class="branch-col">
+      <div class="branch-label yes" style="font-size:0.6rem;">transfer.created</div>
+      <div class="arrow-v">↓</div>
+      <div class="node blue" style="min-width:160px; max-width:180px;">
+        <div class="node-icon">💸</div>
+        <div class="node-label">Xero</div>
+        <div class="node-title">Post Journal Entry</div>
+        <div class="node-desc">Professional payout recorded as expense journal + FX rate logged</div>
+        <span class="node-tool">Xero + FX API</span>
+      </div>
+    </div>
+    <div class="branch-col">
+      <div class="branch-label no" style="font-size:0.6rem;">payment_intent.failed</div>
+      <div class="arrow-v">↓</div>
+      <div class="node red" style="min-width:160px; max-width:180px;">
+        <div class="node-icon">🚨</div>
+        <div class="node-label">Alert</div>
+        <div class="node-title">Flag Failed Payment</div>
+        <div class="node-desc">Slack alert to finance team with payment details &amp; retry options</div>
+        <span class="node-tool">Slack + Xero</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAILY RECONCILIATION TRACK -->
+  <div class="layer-heading" style="margin-top:3rem;">
+    <div class="layer-badge blue">Daily</div>
+    <div class="layer-title">Reconciliation Workflow (6am UTC)</div>
+    <div class="layer-line"></div>
+  </div>
+
+  <div class="flow-lane">
+    <div class="node blue">
+      <div class="node-icon">⏰</div>
+      <div class="node-label">Trigger</div>
+      <div class="node-title">Schedule: 6am</div>
+      <div class="node-desc">Daily reconciliation run begins, pulling yesterday's full transaction set</div>
+      <span class="node-tool">n8n Cron</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node blue">
+      <div class="node-icon">📥</div>
+      <div class="node-label">Data Pull</div>
+      <div class="node-title">Fetch Stripe Transactions</div>
+      <div class="node-desc">All payments, payouts, refunds from Stripe for T-1 day</div>
+      <span class="node-tool">Stripe API</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node blue">
+      <div class="node-icon">📤</div>
+      <div class="node-label">Data Pull</div>
+      <div class="node-title">Fetch Xero Entries</div>
+      <div class="node-desc">Pulls matching date range bank statement lines from Xero</div>
+      <span class="node-tool">Xero API</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node purple">
+      <div class="node-icon">🔀</div>
+      <div class="node-label">Matching</div>
+      <div class="node-title">Reconciliation Engine</div>
+      <div class="node-desc">JS Code node matches records: amount (exact) + reference (fuzzy) + date (±24h)</div>
+      <span class="node-tool">n8n Code Node (JS)</span>
+    </div>
+  </div>
+
+  <div class="arrow-v">↓ <span>Items split: Matched vs. Unmatched</span></div>
+
+  <!-- Decision for matched/unmatched -->
+  <div class="branch-row" style="margin-top:0.5rem; gap:2rem;">
+    <!-- MATCHED -->
+    <div class="branch-col">
+      <div class="branch-label yes">✅ MATCHED</div>
+      <div class="arrow-v">↓</div>
+      <div class="node green">
+        <div class="node-icon">✔️</div>
+        <div class="node-label">Reconciled</div>
+        <div class="node-title">Mark Reconciled</div>
+        <div class="node-desc">Both Stripe event and Xero entry flagged "Reconciled" with match timestamp</div>
+        <span class="node-tool">Xero + Sheets API</span>
+      </div>
+      <div class="arrow-v">↓</div>
+      <div class="node green">
+        <div class="node-icon">📋</div>
+        <div class="node-label">Log</div>
+        <div class="node-title">Audit Log Entry</div>
+        <div class="node-desc">Written to reconciliation audit sheet: match criteria, amount, workflow run ID</div>
+        <span class="node-tool">Google Sheets</span>
+      </div>
+    </div>
+
+    <!-- UNMATCHED -->
+    <div class="branch-col">
+      <div class="branch-label no">⚠️ DISCREPANCY</div>
+      <div class="arrow-v">↓</div>
+      <div class="node purple">
+        <div class="node-icon">🧠</div>
+        <div class="node-label">AI Classify</div>
+        <div class="node-title">GPT-4o Analysis</div>
+        <div class="node-desc">Classifies: timing diff / duplicate charge / FX variance / genuine error</div>
+        <span class="node-tool">OpenAI GPT-4o</span>
+      </div>
+      <div class="arrow-v">↓</div>
+
+      <!-- Sub-branch: minor vs significant -->
+      <div class="branch-row" style="gap:0.75rem;">
+        <div class="branch-col">
+          <div class="branch-label yes" style="font-size:0.6rem;">Minor (Timing)</div>
+          <div class="arrow-v">↓</div>
+          <div class="node green" style="min-width:140px;max-width:165px;">
+            <div class="node-icon">🔧</div>
+            <div class="node-label">Auto-Resolve</div>
+            <div class="node-title">Add Note &amp; Close</div>
+            <div class="node-desc">Note added to both records explaining timing diff. Auto-closed.</div>
+            <span class="node-tool">Xero + Sheets</span>
+          </div>
+        </div>
+        <div class="branch-col">
+          <div class="branch-label no" style="font-size:0.6rem;">Significant</div>
+          <div class="arrow-v">↓</div>
+          <div class="node red" style="min-width:140px;max-width:165px;">
+            <div class="node-icon">🚨</div>
+            <div class="node-label">Escalate</div>
+            <div class="node-title">Finance Alert</div>
+            <div class="node-desc">Slack message to #finance-alerts with all data + suggested action</div>
+            <span class="node-tool">Slack API</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTHLY SUMMARY -->
+  <div class="layer-heading" style="margin-top:3rem;">
+    <div class="layer-badge purple">Monthly</div>
+    <div class="layer-title">Financial Summary &amp; Audit Report</div>
+    <div class="layer-line"></div>
+  </div>
+
+  <div class="flow-lane">
+    <div class="node purple">
+      <div class="node-icon">📅</div>
+      <div class="node-label">Monthly Trigger</div>
+      <div class="node-title">1st of Month</div>
+      <div class="node-desc">Monthly run comparing total Stripe inflows/outflows vs. Xero balances</div>
+      <span class="node-tool">n8n Cron</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node purple">
+      <div class="node-icon">🧮</div>
+      <div class="node-label">Calculate</div>
+      <div class="node-title">Balance Comparison</div>
+      <div class="node-desc">Total Stripe volume vs. Xero recorded — any net variance surfaced</div>
+      <span class="node-tool">n8n Code Node</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node blue">
+      <div class="node-icon">📊</div>
+      <div class="node-label">Report</div>
+      <div class="node-title">Generate PDF Report</div>
+      <div class="node-desc">Full reconciliation summary: matched count, discrepancies, variance %</div>
+      <span class="node-tool">Google Sheets + PDF</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node green">
+      <div class="node-icon">📧</div>
+      <div class="node-label">Deliver</div>
+      <div class="node-title">Email to Finance Lead</div>
+      <div class="node-desc">Monthly audit report emailed to finance &amp; operations leadership</div>
+      <span class="node-tool">SendGrid API</span>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="s-label">Reconciliation Speed</div>
+      <div class="s-value">Daily 6am</div>
+      <div class="s-desc">T-1 full reconciliation automated</div>
+    </div>
+    <div class="summary-card">
+      <div class="s-label">Matching Logic</div>
+      <div class="s-value">3-Factor</div>
+      <div class="s-desc">Amount + Reference + Date ±24h</div>
+    </div>
+    <div class="summary-card">
+      <div class="s-label">FX Compliance</div>
+      <div class="s-value">Rate Locked</div>
+      <div class="s-desc">FX rate logged at time of each payout</div>
+    </div>
+    <div class="summary-card">
+      <div class="s-label">Audit Record</div>
+      <div class="s-value">Dual Trail</div>
+      <div class="s-desc">Xero native + n8n execution history</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot yellow"></div> Real-time Stripe events</div>
+    <div class="legend-item"><div class="legend-dot blue"></div> Daily reconciliation pull</div>
+    <div class="legend-item"><div class="legend-dot purple"></div> AI classification / Monthly reports</div>
+    <div class="legend-item"><div class="legend-dot green"></div> Matched / Resolved / Published</div>
+    <div class="legend-item"><div class="legend-dot red"></div> Failures / Escalations</div>
+  </div>
+</div>
+</div>
+
+<!-- ── Footer ── -->
+<div style="text-align:center; padding: 2rem; color: var(--text-dim); font-size: 0.78rem; border-top: 1px solid var(--border); margin-top: 2rem;">
+  Bryon V. Dela Paz · Operations &amp; AI Automation Expert · Delapazbryon123@gmail.com · linkedin.com/in/bryon-dela-paz-62923b290
+</div>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
