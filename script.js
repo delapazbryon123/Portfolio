@@ -113,4 +113,90 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach(el => {
         revealOnScroll.observe(el);
     });
+
+    // ─────────────────────────────────────────────
+    // Dynamic Projects Rendering (Easy to Update)
+    // ─────────────────────────────────────────────
+    // To add a new project, simply add a new object to this array.
+    const projects = [
+        {
+            tag: "AI / Voice / CRM",
+            title: "AI-Powered Sales Automation System",
+            description: "End-to-End Lead Engagement with Voice AI. A complex, multi-tool workflow designed to handle lead qualification autonomously &mdash; integrating voice calling agents, CRM platforms, and personalized content generation using n8n and OpenAI.",
+            tech: ["n8n", "OpenAI", "Voice AI", "CRM Sync"],
+            link: "ai-sales-workflow.html",
+            linkText: "View Detailed Workflow"
+        },
+        {
+            tag: "SEO / AI / n8n",
+            title: "SEO Keyword Research Automation",
+            description: "AI-Powered Keyword Discovery &amp; Analysis. An automated workflow that researches, analyzes, and prioritizes SEO keywords using AI, dramatically cutting down manual research time and improving search engine rankings for clients.",
+            tech: ["n8n", "AI Analysis", "SEO"],
+            link: "seo-workflow.html",
+            linkText: "View Detailed Workflow"
+        },
+        {
+            tag: "Content / Telegram / AI",
+            title: "PR Content Generation Workflow",
+            description: "Multi-Modal Content Creation &amp; Research via Telegram. A workflow triggered via Telegram that conducts research and generates PR-ready content across multiple formats, enabling rapid, consistent brand communication.",
+            tech: ["Telegram", "OpenAI", "n8n"],
+            link: "pr-content-workflow.html",
+            linkText: "View Detailed Workflow"
+        },
+        {
+            tag: "PM / ClickUp / Automation",
+            title: "Project Management Task Distribution",
+            description: "Automated Meeting-to-Task Conversion for ClickUp. A system that automatically transcribes meeting notes, identifies action items, and creates structured tasks directly in ClickUp &mdash; eliminating manual post-meeting admin work.",
+            tech: ["ClickUp", "n8n", "AI Transcription"],
+            link: "pm-task-workflow.html",
+            linkText: "View Detailed Workflow"
+        },
+        // --- NEW DRIVE PROJECTS ADDED BELOW: ---
+        {
+            tag: "AI / Automation",
+            title: "Advanced AI Automation Workflows",
+            description: "End-to-end intelligent orchestration of business systems using n8n and OpenAI. Automated client communications, generated custom lead magnets, and replaced redundant manual data entry, saving over 20+ hours per week for executive leadership.",
+            tech: ["n8n", "OpenAI", "Zapier"],
+            link: "ai-automation-workflow.html",
+            linkText: "View Case Study"
+        },
+        {
+            tag: "Lead Gen / Strategy",
+            title: "High-Volume Lead Generation Strategy",
+            description: "Targeted research infrastructure supporting investor outreach and angel networking. Leveraged custom CRM pipelines to manage multiple overlapping campaigns, increasing response rates by precisely matching investor thesis.",
+            tech: ["CRM Pipelines", "Email Marketing", "Data Mining"],
+            link: "lead-gen-strategy.html",
+            linkText: "View Case Study"
+        },
+        {
+            tag: "SOP / Operations",
+            title: "Real Estate Operations SOP Hub",
+            description: "End-to-End procedural documentation and systems integration for the J. Boswell Team. Enhanced client experience and dramatically reduced closing friction by enforcing strict operational standards and budget forecasting.",
+            tech: ["Process Optimization", "Documentation", "Compliance"],
+            link: "real-estate-sop.html",
+            linkText: "View Case Study"
+        }
+    ];
+
+    const projectsGrid = document.getElementById("dynamic-projects-grid");
+    if (projectsGrid) {
+        projects.forEach(project => {
+            const card = document.createElement("div");
+            card.className = "project-card glass-card glow-card hover-target";
+            
+            const techSpans = project.tech.map(t => `<span>${t}</span>`).join("");
+            
+            card.innerHTML = `
+                <span class="project-tag">${project.tag}</span>
+                <h3>${project.title}</h3>
+                <p class="project-description">${project.description}</p>
+                <div class="project-tech">
+                    ${techSpans}
+                </div>
+                <a href="${project.link}" class="btn-secondary" style="margin-top: 1rem; width: fit-content; font-size: 0.85rem;">${project.linkText}</a>
+            `;
+            projectsGrid.appendChild(card);
+        });
+    }
+
 });
