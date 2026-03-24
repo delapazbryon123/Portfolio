@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Case Study: Deep Research & UX Design for Green Attic Insulation by Bryon V. Dela Paz.">
+    <title>Green Attic Case Study | Bryon V. Dela Paz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .presentation-hero {
+            background: linear-gradient(180deg, rgba(250, 204, 21, 0.05) 0%, rgba(0, 0, 0, 1) 100%);
+            padding-bottom: 4rem;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-yellow);
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-main);
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .stack-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        .stack-layer {
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            position: relative;
+        }
+        .stack-layer::after {
+            content: '↓';
+            position: absolute;
+            bottom: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent-yellow);
+            font-size: 1.2rem;
+        }
+        .stack-layer:last-child::after {
+            display: none;
+        }
+        .accent-border {
+            border-left: 4px solid var(--accent-yellow);
+            padding-left: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-grid"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">BDP</a>
+            <ul class="nav-links">
+                <li><a href="index.html#automations">Back to Projects</a></li>
+                <li><a href="#contact" class="btn-nav">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Case Study Hero -->
+        <section class="presentation-hero section-padding reveal">
+            <div class="center">
+                <span class="section-label">CASE STUDY: GREEN ATTIC</span>
+                <h1 class="hero-title" style="margin-top: 1rem;">
+                    <span class="text-white">Deep Research &amp;</span>
+                    <span class="text-yellow">Decoupled UX Strategy</span>
+                </h1>
+                <p class="hero-subtitle" style="margin: 0 auto 3rem;">
+                    Solving customer anxiety and operational friction for a $M+ insulation contractor through intelligent workflow design and premium brand repositioning.
+                </p>
+                
+                <div class="stat-grid">
+                    <div class="stat-card glass-card hover-lift">
+                        <span class="stat-number">5.0</span>
+                        <span class="stat-label">Facebook Rating Managed</span>
+                    </div>
+                    <div class="stat-card glass-card hover-lift">
+                        <span class="stat-number">2026</span>
+                        <span class="stat-label">Quality Business Award</span>
+                    </div>
+                    <div class="stat-card glass-card hover-lift">
+                        <span class="stat-number">30%</span>
+                        <span class="stat-label">Avg. Energy Bill Reduction</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Problem -->
+        <section class="section-padding reveal">
+            <div class="about-grid">
+                <div class="section-header">
+                    <span class="section-label">THE CHALLENGE</span>
+                    <h2>The "Invisible Value" &amp; Comms Gap</h2>
+                </div>
+                <div class="glass-card glow-card">
+                    <p class="accent-border">
+                        <strong>Pain Point 1: The Project Gap.</strong> Research identified a critical communication blackout during the 24-48 hour window between insulation removal and re-installation.
+                    </p>
+                    <br>
+                    <p class="accent-border">
+                        <strong>Pain Point 2: Value Perception.</strong> Insulation is "invisible." Customers often struggle to justify high upfront costs for results they can't see but only feel over months.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Innovation -->
+        <section class="section-padding reveal" style="background: rgba(250, 204, 21, 0.02);">
+            <div class="section-header center">
+                <span class="section-label">THE SOLUTION</span>
+                <h2>Automation-First Experience</h2>
+            </div>
+            
+            <div class="about-pillars" style="margin-top: 3rem;">
+                <div class="pillar glass-card hover-lift">
+                    <div class="pillar-icon">✉️</div>
+                    <h3>Phase-Transition SMS</h3>
+                    <p>Automated real-time updates triggered by field completion, eliminating customer "downtime" anxiety.</p>
+                </div>
+                <div class="pillar glass-card hover-lift">
+                    <div class="pillar-icon">🧮</div>
+                    <h3>Interactive ROI Tool</h3>
+                    <p>A dynamic Lead Magnet that visualizes 10-year energy savings, turning "invisible work" into "tangible investment."</p>
+                </div>
+                <div class="pillar glass-card hover-lift">
+                    <div class="pillar-icon">📑</div>
+                    <h3>One-Click Rebate Filing</h3>
+                    <p>Automated PDF generation for utility rebates (ComEd/Peoples Gas) using data scraped from work-orders.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Tech Stack -->
+        <section class="section-padding reveal">
+            <div class="center" style="max-width: 800px; margin: 0 auto;">
+                <span class="section-label">ARCHITECTURE</span>
+                <h2>Decoupled Workflow System</h2>
+                <p style="margin-bottom: 3rem;">My strategic approach separates the UI from the Business Logic for maximum reliability and scalability.</p>
+                
+                <div class="stack-diagram">
+                    <div class="stack-layer hover-lift">
+                        <strong class="text-yellow">UI LAYER: WordPress</strong>
+                        <p>Lead Capture & Front-end Content</p>
+                    </div>
+                    <div class="stack-layer hover-lift" style="background: rgba(250, 204, 21, 0.1); border-color: var(--accent-yellow);">
+                        <strong class="text-white">WORKFLOW LAYER: n8n / AI Agent</strong>
+                        <p>Brain: SMS Logic, PDF Gen, ROI Calculations</p>
+                    </div>
+                    <div class="stack-layer hover-lift">
+                        <strong class="text-yellow">DATA LAYER: CRM / Database</strong>
+                        <p>Customer Single Source of Truth</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Call -->
+        <section class="section-padding reveal center">
+            <div class="glass-card outline" style="padding: 4rem;">
+                <h2>Interested in this strategy?</h2>
+                <p style="margin: 1.5rem 0 2.5rem;">I help founders build intelligent, performance-driven systems that reclaim time and scale operations.</p>
+                <div class="hero-actions" style="justify-content: center;">
+                    <a href="mailto:Delapazbryon123@gmail.com" class="btn-primary">Connect with Bryon</a>
+                    <a href="index.html#automations" class="btn-secondary">More Projects</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Bryon V. Dela Paz &middot; Operations & AI Expert</p>
+    </footer>
+
+    <script>
+        // Simple reveal script for consistency
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>

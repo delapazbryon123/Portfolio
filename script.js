@@ -151,6 +151,14 @@ document.addEventListener("DOMContentLoaded", () => {
             link: "pm-task-workflow.html",
             linkText: "View Detailed Workflow"
         },
+        {
+            tag: "Research / Design / Strategy",
+            title: "Deep Research & UX Design: Green Attic",
+            description: "Comprehensive market analysis and high-fidelity redesign for a leading Chicagoland energy contractor. Identified critical customer pain points and architected a decoupled automation system to streamline operations and enhance lead conversion.",
+            tech: ["Research Skills", "UI/UX Design", "Workflow Strategy", "Decoupled Architecture"],
+            link: "green-attic-presentation.html",
+            linkText: "View Case Study"
+        },
         // --- NEW DRIVE PROJECTS ADDED BELOW: ---
         {
             tag: "AI / Automation",
