@@ -37,44 +37,6 @@
             letter-spacing: 1px;
             color: var(--text-main);
         }
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin: 4rem 0;
-        }
-        @media (max-width: 768px) {
-            .comparison-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        .stack-diagram {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-width: 600px;
-            margin: 2rem auto;
-        }
-        .stack-layer {
-            padding: 1.5rem;
-            border-radius: 1rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            position: relative;
-        }
-        .stack-layer::after {
-            content: '↓';
-            position: absolute;
-            bottom: -1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--accent-yellow);
-            font-size: 1.2rem;
-        }
-        .stack-layer:last-child::after {
-            display: none;
-        }
         .accent-border {
             border-left: 4px solid var(--accent-yellow);
             padding-left: 1.5rem;
@@ -82,6 +44,85 @@
         }
         .accent-border:last-child {
             margin-bottom: 0;
+        }
+        
+        /* ── Visual Workflow CSS (Imported from Portfolio) ── */
+        .wf-section {
+            margin: 4rem auto; max-width: 1000px;
+        }
+        .wf-title {
+            font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem;
+        }
+        .wf-subtitle {
+            color: var(--text-main); font-size: 1rem; margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+        .layer-heading {
+            display: flex; align-items: center; gap: 0.75rem;
+            margin: 2.5rem 0 1.2rem;
+        }
+        .layer-badge {
+            padding: 0.25rem 0.9rem; border-radius: 20px;
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .layer-badge.yellow { background: rgba(250,204,21,0.15); color: var(--accent-yellow); border: 1px solid rgba(250,204,21,0.25); }
+        .layer-badge.blue   { background: rgba(59,130,246,0.15); color: #3b82f6; border: 1px solid rgba(59,130,246,0.25); }
+        .layer-title {
+            font-size: 0.9rem; font-weight: 700; color: #fff;
+        }
+        .layer-line {
+            flex: 1; height: 1px; background: rgba(255,255,255,0.1);
+        }
+        .flow-lane {
+            display: flex; align-items: center; flex-wrap: wrap; gap: 0;
+        }
+        .node {
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 16px;
+            background: rgba(255,255,255,0.03); padding: 1.2rem 1.4rem;
+            min-width: 200px; max-width: 240px; flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+        .node:hover { transform: translateY(-2px); }
+        .node.yellow { border-color: rgba(250,204,21,0.35); box-shadow: 0 0 20px rgba(250,204,21,0.07); }
+        .node.blue   { border-color: rgba(59,130,246,0.35); box-shadow: 0 0 20px rgba(59,130,246,0.07); }
+        .node.purple { border-color: rgba(168,85,247,0.35); box-shadow: 0 0 20px rgba(168,85,247,0.07); }
+        .node.green  { border-color: rgba(34,197,94,0.35); box-shadow: 0 0 20px rgba(34,197,94,0.07); }
+        .node.white  { border-color: rgba(255,255,255,0.35); }
+        
+        .node-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+        .node-label {
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; margin-bottom: 0.2rem;
+        }
+        .node.yellow .node-label { color: var(--accent-yellow); }
+        .node.blue .node-label   { color: #3b82f6; }
+        .node.purple .node-label { color: #a855f7; }
+        .node.green .node-label  { color: #22c55e; }
+        
+        .node-title { font-size: 0.88rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
+        .node-desc { font-size: 0.72rem; color: rgba(255,255,255,0.6); line-height: 1.4; }
+        .node-tool {
+            display: inline-block; margin-top: 0.5rem; padding: 0.15rem 0.6rem;
+            border-radius: 20px; font-size: 0.65rem; font-weight: 600;
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.6);
+        }
+        .arrow-h {
+            display: flex; align-items: center; padding: 0 0.5rem;
+            color: rgba(255,255,255,0.4); font-size: 1.1rem; min-width: 36px; justify-content: center;
+        }
+        .arrow-v {
+            display: flex; flex-direction: column; align-items: center; width: 100%;
+            padding: 0.3rem 0; color: rgba(255,255,255,0.4); font-size: 1.1rem;
+        }
+        .branch-row { display: flex; gap: 1.5rem; align-items: flex-start; justify-content: center; margin-top: 1rem; }
+        .branch-col { display: flex; flex-direction: column; align-items: center; gap: 0; }
+        
+        @media (max-width: 768px) {
+            .flow-lane { flex-direction: column; align-items: stretch; }
+            .arrow-h { transform: rotate(90deg); padding: 0.5rem 0; }
+            .node { max-width: 100%; }
+            .branch-row { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
@@ -102,7 +143,7 @@
     </nav>
 
     <main>
-        <!-- Case Study Hero -->
+        <!-- Hero -->
         <section class="presentation-hero section-padding reveal">
             <div class="center">
                 <span class="section-label">ENTERPRISE SOLUTION BRIEF</span>
@@ -113,7 +154,6 @@
                 <p class="hero-subtitle" style="margin: 0 auto 3rem;">
                     Evolving Green Attic into a tech-enabled powerhouse through decoupled n8n-driven workflows, ClickUp automation, and AI Lead Generation.
                 </p>
-                
                 <div class="stat-grid">
                     <div class="stat-card glass-card hover-lift">
                         <span class="stat-number">RAG</span>
@@ -131,20 +171,20 @@
             </div>
         </section>
 
-        <!-- The Discovery -->
+        <!-- Discovery -->
         <section class="section-padding reveal" style="background: rgba(250, 204, 21, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
             <div class="center" style="max-width: 900px; margin: 0 auto; text-align: left;">
                 <span class="section-label text-yellow">THE DISCOVERY PROCESS</span>
-                <h2 style="margin-bottom: 2rem;">How I Identified These Scaling Gaps</h2>
+                <h2 style="margin-bottom: 2rem;">Identifying Operational Bottlenecks</h2>
                 <div class="glass-card" style="padding: 3rem;">
                     <p style="margin-bottom: 1.5rem;">
-                        <strong class="text-yellow">1. Deep Brand Analysis:</strong> Instead of just reading the requirements for an Automation Engineer, I analyzed Green Attic's customer journey, digital presence, and massive franchise competitors (like Koala Insulation).
+                        <strong class="text-yellow">1. Strategic Analysis:</strong> In evaluating the Enterprise Architect position, I mapped the standard customer journey and operational workflows of high-volume insulation contractors against Green Attic's existing tech stack and market positioning.
                     </p>
                     <p style="margin-bottom: 1.5rem;">
-                        <strong class="text-yellow">2. Operational Mapping:</strong> I mapped the standard workflow of a high-volume insulation contractor and cross-referenced it with your job description. I immediately identified the exact administrative friction points causing artificial speed limits: <strong>siloed CRM data, manual handoffs to ClickUp, and stagnant AI Search Engine optimization.</strong>
+                        <strong class="text-yellow">2. Identifying the Gaps:</strong> This analysis revealed common industry friction points that often limit scaling: manual data handoffs between sales and Field Operations (CRM to ClickUp), inconsistent "field-to-feed" marketing content generation, and the massive resource costs associated with traditional commercial B2B outreach.
                     </p>
                     <p>
-                        <strong class="text-yellow">3. The Solution Proposal:</strong> What follows is NOT a generic presentation. It is a custom, <strong>decoupled n8n architecture</strong> designed specifically to solve Green Attic's data silos and fully automate your sales, marketing, and field operations.
+                        <strong class="text-yellow">3. The Proposed Architecture:</strong> What follows is a blueprint for a custom, decoupled n8n architecture designed specifically to eliminate manual data entry, connect siloed systems via APIs, and fully automate operations natively without ballooning SaaS costs.
                     </p>
                 </div>
             </div>
@@ -155,83 +195,159 @@
             <div class="about-grid">
                 <div class="section-header">
                     <span class="section-label">THE CHALLENGE</span>
-                    <h2>The 5 Bottlenecks of Scale</h2>
+                    <h2>General Industry Friction Points</h2>
                 </div>
                 <div class="glass-card glow-card" style="padding: 3rem;">
                     <p class="accent-border">
-                        <strong>1. CRM-to-ClickUp Friction:</strong> When a sales rep closes a massive $15k insulation deal in the CRM, Operations must manually re-type every sub-task, material load, and crew assignment into ClickUp. This manual data entry creates silos and guarantees dropped balls.
+                        <strong>1. CRM-to-ClickUp Handoff Friction:</strong> Transitioning from a won deal in the CRM to an actionable, fully-scoped project in ClickUp often requires extensive manual data entry. This creates data silos and increases the likelihood of miscommunication between sales and field operations.
                     </p>
                     <p class="accent-border">
-                        <strong>2. Stagnant SEO vs Franchises:</strong> Giant franchises spend millions on SEO. Green Attic cannot manually write enough hyper-local blog posts to respond to sudden Chicago weather events, causing you to lose out on ChatGPT/Google rankings.
+                        <strong>2. Stagnant Local SEO:</strong> Maintaining a hyper-local blog presence to capture Generative AI search traffic requires immense manual writing time, making it difficult to compete organically against national franchises with massive marketing budgets.
                     </p>
                     <p class="accent-border">
-                        <strong>3. The "Field-to-Feed" Content Jam:</strong> Installers take excellent 'before and after' attic photos on their phones, but sending them to a marketer, writing unique captions with hashtags, and scheduling them across 4 networks is a massive administrative roadblock.
+                        <strong>3. The Content Bottleneck:</strong> Field installers take excellent job-site photos, but transferring those images to marketing, writing unique localized captions, and scheduling them across multiple networks is tedious and frequently neglected.
                     </p>
                     <p class="accent-border">
-                        <strong>4. The "Project Gap" Anxiety:</strong> Multi-day jobs (removal on Day 1, install on Day 2) create extreme homeowner anxiety. When the crew leaves silently after Day 1, the homeowner is left in the dark, breeding 3-star reviews.
+                        <strong>4. The "Project Gap" Anxiety:</strong> During multi-day projects, homeowners can experience anxiety if they aren't proactively updated between phases. Manual communication often drops off when field crews are busy, leading to decreased customer satisfaction.
                     </p>
                     <p class="accent-border">
-                        <strong>5. Untapped B2B Markets:</strong> Insulating a 50,000 sq ft commercial warehouse is incredibly lucrative, but hiring a full-time B2B SDR to cold-call Chicago Property Managers costs $70k+/year with a low ROI.
+                        <strong>5. Expensive B2B Lead Gen:</strong> Commercial insulation is highly lucrative, but hiring dedicated outbound SDRs is expensive and traditional manual cold-calling yields diminishing returns.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- The Innovation -->
-        <section class="section-padding reveal" style="background: rgba(250, 204, 21, 0.02);">
-            <div class="section-header center">
-                <span class="section-label">THE SOLUTION</span>
-                <h2>End-to-End Automation Pillars</h2>
-            </div>
-            
-            <div class="about-pillars" style="margin-top: 3rem;">
-                <div class="pillar glass-card hover-lift">
-                    <div class="pillar-icon">✅</div>
-                    <h3>1. The ClickUp Ops Pipeline &amp; RAG</h3>
-                    <p><strong>The Fix:</strong> When CRM deals wipe to "Won", an n8n webhook automatically builds the ClickUp project, parses task requirements, and assigns the install crew. Data is simultaneously fed to an internal AI Vector Database so staff can instantly query: <em>"What's the status of the Smith job?"</em></p>
-                </div>
-                <div class="pillar glass-card hover-lift">
-                    <div class="pillar-icon">🤖</div>
-                    <h3>2. AI B2B Lead Generator</h3>
-                    <p><strong>The Fix:</strong> A custom Python GUI automatically scrapes Chicagoland Property Managers on LinkedIn and uses an OpenAI node to send hyper-personalized email outreach, booking Commercial Energy Audits on autopilot.</p>
-                </div>
-                <div class="pillar glass-card hover-lift">
-                    <div class="pillar-icon">✉️</div>
-                    <h3>3. Proactive Twilio SMS Updates</h3>
-                    <p><strong>The Fix:</strong> Eliminates the "Project Gap." When the lead installer taps "Phase 1 Complete" on their iPad, n8n instantly triggers a Twilio SMS to the homeowner: <em>"Phase 1 is complete! See you tomorrow at 8 AM for sealing."</em></p>
-                </div>
-                <div class="pillar glass-card hover-lift">
-                    <div class="pillar-icon">📸</div>
-                    <h3>4. AI Vision Content Pipeline</h3>
-                    <p><strong>The Fix:</strong> Installers drop job photos securely into ClickUp or Slack. An `GPT-4o Vision` model instantly analyzes the photo, writes optimized captions with local hashtags for FB/IG/LinkedIn, and n8n schedules them natively.</p>
-                </div>
-                <div class="pillar glass-card hover-lift">
-                    <div class="pillar-icon">🔍</div>
-                    <h3>5. Weather-Triggered GEO Engine</h3>
-                    <p><strong>The Fix:</strong> n8n monitors Chicago OpenWeather APIs. The second temperatures drop below freezing, an AI agent automatically drafts and publishes a WordPress post: <em>"How Chicago Homes Prevent Frozen Pipes This Week"</em>, instantly dominating local search algorithms.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- The Tech Stack -->
+        <!-- Sample Workflows -->
         <section class="section-padding reveal">
-            <div class="center" style="max-width: 800px; margin: 0 auto;">
-                <span class="section-label">ARCHITECTURE</span>
-                <h2>The n8n Enterprise Backbone</h2>
-                <p style="margin-bottom: 3rem;">By treating specialized apps purely as interfaces and utilizing <strong>n8n</strong> + <strong>Docker</strong> for the heavy lifting (Data Routing, Vision AI, API Calls), Green Attic achieves infinite scalability.</p>
+            <div class="center" style="max-width: 1000px; margin: 0 auto; text-align: left;">
+                <span class="section-label">ARCHITECTURE IN ACTION</span>
+                <h2 style="text-align: center; margin-bottom: 3rem;">Sample Automation Workflows</h2>
                 
-                <div class="stack-diagram">
-                    <div class="stack-layer hover-lift">
-                        <strong class="text-yellow">UI LAYER: WordPress &amp; Python GUIs</strong>
-                        <p>Lead Capture &amp; Front-end Operations Initiation</p>
+                <!-- Workflow 1: ClickUp Ops -->
+                <div class="wf-section" style="margin-top: 0;">
+                    <div class="wf-title">1. The Project Handoff &amp; RAG Sync Pipeline</div>
+                    <div class="wf-subtitle">A seamless event architecture orchestrating CRM contract approvals into fully provisioned ClickUp environments, while syncing data to a Vector Database for internal AI queries.</div>
+                    
+                    <div class="layer-heading">
+                        <div class="layer-badge yellow">Phase 1</div>
+                        <div class="layer-title">Deal Processing &amp; Operations Setup</div>
+                        <div class="layer-line"></div>
                     </div>
-                    <div class="stack-layer hover-lift" style="background: rgba(250, 204, 21, 0.1); border-color: var(--accent-yellow);">
-                        <strong class="text-white">WORKFLOW LAYER: n8n Central Brain</strong>
-                        <p>ClickUp Auto-Tasking, Twilio SMS, Field-to-Feed Vision AI, RAG Synchronization</p>
+                    <div class="flow-lane">
+                        <div class="node yellow">
+                            <div class="node-icon">💼</div>
+                            <div class="node-label">Trigger</div>
+                            <div class="node-title">CRM Deal Won</div>
+                            <div class="node-desc">Sales rep marks contract as Signed/Won in HubSpot/ServiceTitan.</div>
+                            <span class="node-tool">n8n Webhook Endpoint</span>
+                        </div>
+                        <div class="arrow-h">→</div>
+                        <div class="node white">
+                            <div class="node-icon">⚙️</div>
+                            <div class="node-label">JavaScript</div>
+                            <div class="node-title">Data Transformation</div>
+                            <div class="node-desc">Parses the job scope string to extract materials, dates, and crew type.</div>
+                            <span class="node-tool">n8n Code Node</span>
+                        </div>
+                        <div class="arrow-h">→</div>
+                        <div class="node blue">
+                            <div class="node-icon">📋</div>
+                            <div class="node-label">Operations</div>
+                            <div class="node-title">ClickUp Provisioning</div>
+                            <div class="node-desc">Automatically builds the ClickUp List, writes sub-tasks, and assigns the correct field crew.</div>
+                            <span class="node-tool">ClickUp API</span>
+                        </div>
                     </div>
-                    <div class="stack-layer hover-lift">
-                        <strong class="text-yellow">DATA LAYER: CRM, ClickUp &amp; Vector DBs</strong>
-                        <p>Master Data Warehousing &amp; AI Context Retrieval</p>
+                    
+                    <div class="layer-heading">
+                        <div class="layer-badge blue">Phase 2</div>
+                        <div class="layer-title">Vector DB Memory Sync</div>
+                        <div class="layer-line"></div>
+                    </div>
+                    <div class="flow-lane">
+                        <div class="node blue">
+                            <div class="node-icon">🔄</div>
+                            <div class="node-label">Trigger</div>
+                            <div class="node-title">ClickUp Status Update</div>
+                            <div class="node-desc">Polls for task completion or delays from the field iPad.</div>
+                            <span class="node-tool">ClickUp Webhook</span>
+                        </div>
+                        <div class="arrow-h">→</div>
+                        <div class="node purple">
+                            <div class="node-icon">🧠</div>
+                            <div class="node-label">AI Encoding</div>
+                            <div class="node-title">Create Embeddings</div>
+                            <div class="node-desc">Converts the project status update into vector math for AI retrieval.</div>
+                            <span class="node-tool">OpenAI Embeddings</span>
+                        </div>
+                        <div class="arrow-h">→</div>
+                        <div class="node green">
+                            <div class="node-label">Database</div>
+                            <div class="node-title">Upsert to Pinecone</div>
+                            <div class="node-desc">Internal staff can now query an AI bot: "Status of Smith job?"</div>
+                            <span class="node-tool">Pinecone / Qdrant</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workflow 2: Content Pipeline -->
+                <div class="wf-section">
+                    <div class="wf-title">2. Field-to-Feed AI Content Pipeline</div>
+                    <div class="wf-subtitle">Eliminates the marketing bottleneck by using AI Vision to convert raw job-site photos into tailored, scheduled content across multiple social platforms.</div>
+                    
+                    <div class="layer-heading">
+                        <div class="layer-badge blue">Orchestration</div>
+                        <div class="layer-title">Image Ingestion &amp; Generation</div>
+                        <div class="layer-line"></div>
+                    </div>
+                    <div class="flow-lane">
+                        <div class="node blue">
+                            <div class="node-icon">📸</div>
+                            <div class="node-label">Intake</div>
+                            <div class="node-title">Slack Image Drop</div>
+                            <div class="node-desc">Installer uploads a before/after photo to #marketing-assets.</div>
+                            <span class="node-tool">Slack Events Trigger</span>
+                        </div>
+                        <div class="arrow-h">→</div>
+                        <div class="node purple">
+                            <div class="node-icon">👁️</div>
+                            <div class="node-label">AI Vision</div>
+                            <div class="node-title">GPT-4o Vision</div>
+                            <div class="node-desc">AI "reads" the photo, identifies the insulation, and writes 3 unique social captions.</div>
+                            <span class="node-tool">OpenAI API</span>
+                        </div>
+                    </div>
+                    
+                    <div class="layer-heading">
+                        <div class="layer-badge green">Distribution</div>
+                        <div class="layer-title">Omnichannel Syndication</div>
+                        <div class="layer-line"></div>
+                    </div>
+                    <div class="branch-row">
+                        <div class="branch-col">
+                            <div class="node green">
+                                <div class="node-label">Platform</div>
+                                <div class="node-title">Facebook</div>
+                                <div class="node-desc">Posts image with casual caption.</div>
+                                <span class="node-tool">Graph API</span>
+                            </div>
+                        </div>
+                        <div class="branch-col">
+                            <div class="node green">
+                                <div class="node-label">Platform</div>
+                                <div class="node-title">Instagram</div>
+                                <div class="node-desc">Posts image with hashtag-heavy caption.</div>
+                                <span class="node-tool">Graph API</span>
+                            </div>
+                        </div>
+                        <div class="branch-col">
+                            <div class="node green">
+                                <div class="node-label">Platform</div>
+                                <div class="node-title">LinkedIn</div>
+                                <div class="node-desc">Posts image with B2B professional caption.</div>
+                                <span class="node-tool">LinkedIn API</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -255,7 +371,6 @@
     </footer>
 
     <script>
-        // Simple reveal script for consistency
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
