@@ -120,6 +120,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // To add a new project, simply add a new object to this array.
     const projects = [
         {
+            tag: "n8n · 100+ Workflows · 15 Categories",
+            title: "N8N Workflow Vault",
+            description: "A full production catalog of <strong>100+ intelligent automation workflows</strong> spanning PR &amp; media outreach, SEO app suites, AI bots, lead generation, blog publishing, video processing, and more &mdash; all built and deployed for real clients.",
+            tech: ["n8n", "OpenAI", "Gemini", "Multi-Agent", "Telegram", "Apify", "ClickUp", "Google Suite"],
+            link: "n8n-workflows.html",
+            linkText: "Explore 100+ Workflows →",
+            featured: true
+        },
+        {
             tag: "AI / Voice / CRM",
             title: "AI-Powered Sales Automation System",
             description: "End-to-End Lead Engagement with Voice AI. A complex, multi-tool workflow designed to handle lead qualification autonomously &mdash; integrating voice calling agents, CRM platforms, and personalized content generation using n8n and OpenAI.",
@@ -190,19 +199,40 @@ document.addEventListener("DOMContentLoaded", () => {
     if (projectsGrid) {
         projects.forEach(project => {
             const card = document.createElement("div");
-            card.className = "project-card glass-card glow-card hover-target";
-            
-            const techSpans = project.tech.map(t => `<span>${t}</span>`).join("");
-            
-            card.innerHTML = `
-                <span class="project-tag">${project.tag}</span>
-                <h3>${project.title}</h3>
-                <p class="project-description">${project.description}</p>
-                <div class="project-tech">
-                    ${techSpans}
-                </div>
-                <a href="${project.link}" class="btn-secondary" style="margin-top: 1rem; width: fit-content; font-size: 0.85rem;">${project.linkText}</a>
-            `;
+
+            if (project.featured) {
+                // Featured hero card — spans full width with yellow accent border
+                card.className = "project-card glass-card hover-target";
+                card.style.cssText = "grid-column: 1 / -1; border-color: rgba(250,204,21,0.35); background: linear-gradient(145deg, rgba(30,25,5,0.75), rgba(10,8,0,0.95)); box-shadow: 0 0 60px rgba(250,204,21,0.08);";
+                card.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+                        <div style="flex:1; min-width:260px;">
+                            <span class="project-tag" style="background:rgba(250,204,21,0.12); border-color:rgba(250,204,21,0.4); color:var(--accent-yellow);">${project.tag}</span>
+                            <h3 style="font-size:2.2rem; margin-bottom:1rem;">${project.title}</h3>
+                            <p class="project-description">${project.description}</p>
+                            <div class="project-tech" style="margin-top:1.2rem;">${project.tech.map(t => `<span>${t}</span>`).join("")}</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:0.8rem; align-self:center;">
+                            <div style="text-align:center; padding:1.2rem 2rem; background:rgba(250,204,21,0.06); border:1px solid rgba(250,204,21,0.2); border-radius:1rem;">
+                                <div style="font-size:3rem; font-weight:800; color:var(--accent-yellow);">100+</div>
+                                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:#9CA3AF;">Workflows Built</div>
+                            </div>
+                            <a href="${project.link}" class="btn-primary" style="text-align:center; padding:0.9rem 1.6rem;">${project.linkText}</a>
+                        </div>
+                    </div>
+                `;
+            } else {
+                card.className = "project-card glass-card glow-card hover-target";
+                const techSpans = project.tech.map(t => `<span>${t}</span>`).join("");
+                card.innerHTML = `
+                    <span class="project-tag">${project.tag}</span>
+                    <h3>${project.title}</h3>
+                    <p class="project-description">${project.description}</p>
+                    <div class="project-tech">${techSpans}</div>
+                    <a href="${project.link}" class="btn-secondary" style="margin-top: 1rem; width: fit-content; font-size: 0.85rem;">${project.linkText}</a>
+                `;
+            }
+
             projectsGrid.appendChild(card);
         });
     }

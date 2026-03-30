@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bryon V. Dela Paz — 100+ N8N automation workflows spanning PR, SEO, Lead Gen, AI Bots, Content, and more.">
+    <title>N8N Workflow Vault | Bryon V. Dela Paz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #000;
+            --text: #D1D5DB;
+            --white: #fff;
+            --yellow: #FACC15;
+            --yellow-dark: #EAB308;
+            --yellow-glow: rgba(250,204,21,0.35);
+            --card-bg: rgba(17,24,39,0.7);
+            --border: rgba(255,255,255,0.08);
+            --trans: all 0.3s cubic-bezier(0.25,0.8,0.25,1);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;font-size:16px;}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;}
+
+        /* BG grid */
+        .bg-grid{position:fixed;inset:0;z-index:-1;
+            background-image:linear-gradient(rgba(250,204,21,0.03)1px,transparent 1px),linear-gradient(90deg,rgba(250,204,21,0.03)1px,transparent 1px);
+            background-size:50px 50px;pointer-events:none;}
+
+        /* NAV */
+        nav{position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,0.88);backdrop-filter:blur(14px);z-index:1000;border-bottom:1px solid var(--border);transition:var(--trans);}
+        .nav-inner{max-width:1200px;margin:0 auto;padding:1.1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;}
+        .logo{font-size:1.4rem;font-weight:800;color:var(--white);letter-spacing:1px;text-decoration:none;}
+        .nav-links{display:flex;list-style:none;gap:2rem;align-items:center;}
+        .nav-links a{font-size:.88rem;font-weight:500;color:#D1D5DB;text-decoration:none;transition:var(--trans);}
+        .nav-links a:hover,.nav-links a.active{color:var(--yellow);}
+        .btn-nav{background:var(--yellow);color:#000!important;padding:.45rem 1rem;border-radius:.3rem;font-weight:600;}
+        .btn-nav:hover{background:var(--yellow-dark);}
+
+        /* HERO BANNER */
+        .page-hero{padding:8rem 1.5rem 4rem;max-width:1100px;margin:0 auto;text-align:center;}
+        .eyebrow{display:inline-block;color:var(--yellow);font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+            margin-bottom:1.5rem;padding:.4rem 1.2rem;border:1px solid rgba(250,204,21,.3);border-radius:30px;background:rgba(250,204,21,.05);}
+        .page-hero h1{font-size:clamp(2.8rem,6vw,4.5rem);font-weight:800;color:var(--white);letter-spacing:-1px;text-transform:uppercase;line-height:1.05;margin-bottom:1.5rem;}
+        .page-hero h1 span{color:transparent;-webkit-text-stroke:1.5px var(--yellow);}
+        .page-hero p{font-size:1.1rem;max-width:700px;margin:0 auto 2.5rem;color:var(--text);}
+
+        /* STATS BAR */
+        .stats-bar{display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;margin-bottom:3rem;}
+        .stat-pill{background:linear-gradient(145deg,rgba(30,30,30,.7),rgba(15,15,15,.95));
+            border:1px solid rgba(250,204,21,.25);border-radius:50px;padding:.7rem 1.8rem;
+            display:flex;align-items:center;gap:.8rem;backdrop-filter:blur(10px);}
+        .stat-num{font-size:1.6rem;font-weight:800;color:var(--yellow);}
+        .stat-lbl{font-size:.8rem;color:var(--text);text-transform:uppercase;letter-spacing:1px;}
+
+        /* FILTER TABS */
+        .filter-wrap{max-width:1100px;margin:0 auto 2.5rem;padding:0 1.5rem;}
+        .filter-tabs{display:flex;flex-wrap:wrap;gap:.6rem;}
+        .filter-btn{padding:.45rem 1.1rem;border-radius:20px;border:1px solid rgba(255,255,255,.12);background:transparent;
+            color:var(--text);font-size:.8rem;font-weight:600;cursor:pointer;transition:var(--trans);font-family:'Inter',sans-serif;letter-spacing:.5px;}
+        .filter-btn:hover,.filter-btn.active{background:rgba(250,204,21,.12);border-color:var(--yellow);color:var(--yellow);}
+
+        /* MAIN GRID CONTAINER */
+        .vault-wrap{max-width:1100px;margin:0 auto;padding:0 1.5rem 6rem;}
+
+        /* CATEGORY SECTION */
+        .cat-section{margin-bottom:4rem;}
+        .cat-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.8rem;}
+        .cat-icon{font-size:1.6rem;}
+        .cat-title{font-size:1.4rem;font-weight:700;color:var(--white);}
+        .cat-count{font-size:.75rem;font-weight:600;color:var(--yellow);
+            background:rgba(250,204,21,.1);border:1px solid rgba(250,204,21,.3);
+            padding:.25rem .7rem;border-radius:20px;letter-spacing:1px;}
+        .cat-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.08),transparent);}
+
+        /* CARDS GRID */
+        .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;}
+
+        /* WORKFLOW CARD */
+        .wf-card{background:linear-gradient(145deg,rgba(25,25,35,.75),rgba(10,10,15,.95));
+            border:1px solid rgba(255,255,255,.07);border-radius:1.2rem;padding:1.6rem;
+            display:flex;flex-direction:column;gap:.6rem;
+            transition:transform .35s cubic-bezier(.25,1,.5,1),box-shadow .35s ease,border-color .35s ease;position:relative;overflow:hidden;}
+        .wf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+            background:linear-gradient(90deg,transparent,rgba(250,204,21,.4),transparent);opacity:0;transition:.3s;}
+        .wf-card:hover{transform:translateY(-6px);border-color:rgba(250,204,21,.3);box-shadow:0 20px 45px rgba(250,204,21,.1);}
+        .wf-card:hover::before{opacity:1;}
+
+        .wf-status{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:700;
+            letter-spacing:.8px;text-transform:uppercase;margin-bottom:.4rem;}
+        .status-dot{width:7px;height:7px;border-radius:50%;}
+        .wf-status.active .status-dot{background:#22C55E;box-shadow:0 0 6px #22C55E;}
+        .wf-status.active{color:#4ADE80;}
+        .wf-status.inactive .status-dot{background:#6B7280;}
+        .wf-status.inactive{color:#9CA3AF;}
+
+        .wf-name{font-size:1rem;font-weight:700;color:var(--white);line-height:1.3;}
+        .wf-desc{font-size:.83rem;color:var(--text);line-height:1.55;flex:1;}
+
+        .wf-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem;}
+        .wf-tag{font-size:.7rem;padding:.2rem .65rem;border-radius:10px;border:1px solid rgba(255,255,255,.1);
+            background:rgba(255,255,255,.04);color:#9CA3AF;font-weight:500;}
+        .wf-tag.yellow{border-color:rgba(250,204,21,.25);background:rgba(250,204,21,.07);color:var(--yellow);}
+
+        /* BACK BUTTON */
+        .back-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.3rem;
+            background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+            border-radius:.5rem;color:var(--text);font-weight:600;font-size:.9rem;
+            text-decoration:none;transition:var(--trans);margin-bottom:1rem;}
+        .back-btn:hover{background:rgba(250,204,21,.1);border-color:var(--yellow);color:var(--yellow);}
+
+        /* FOOTER */
+        footer{text-align:center;padding:2rem;border-top:1px solid var(--border);color:var(--text);font-size:.88rem;}
+
+        /* REVEAL ANIM */
+        .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease-out,transform .7s ease-out;}
+        .reveal.active{opacity:1;transform:none;}
+
+        @media(max-width:768px){
+            .nav-links{display:none;}
+            .stats-bar{gap:1rem;}
+            .stat-pill{padding:.6rem 1.2rem;}
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<nav id="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="logo" style="display:inline-flex;align-items:center;gap:0.6rem;text-decoration:none;">
+            <img src="Picture.png.avif" alt="Bryon V. Dela Paz" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(250,204,21,0.5);">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#automations">Projects</a></li>
+            <li><a href="n8n-workflows.html" class="active">Workflows</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="cv.html">CV</a></li>
+            <li><a href="index.html#contact" class="btn-nav">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <!-- PAGE HERO -->
+    <section class="page-hero reveal">
+        <a href="index.html" class="back-btn">← Back to Portfolio</a>
+        <div class="eyebrow">Live Production System</div>
+        <h1>N8N <span>Workflow Vault</span></h1>
+        <p>A complete catalog of intelligent automation systems built and deployed across real client environments — spanning PR, SEO, lead generation, AI agents, content creation, and more.</p>
+
+        <div class="stats-bar">
+            <div class="stat-pill">
+                <span class="stat-num">100+</span>
+                <span class="stat-lbl">Workflows Built</span>
+            </div>
+            <div class="stat-pill">
+                <span class="stat-num">15</span>
+                <span class="stat-lbl">Categories</span>
+            </div>
+            <div class="stat-pill">
+                <span class="stat-num">10+</span>
+                <span class="stat-lbl">Clients Served</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FILTER TABS -->
+    <div class="filter-wrap reveal">
+        <div class="filter-tabs" id="filterTabs">
+            <button class="filter-btn active" data-cat="all">All</button>
+            <button class="filter-btn" data-cat="pr">PR &amp; Media</button>
+            <button class="filter-btn" data-cat="seo">SEO App</button>
+            <button class="filter-btn" data-cat="keyword">Keyword Research</button>
+            <button class="filter-btn" data-cat="blog">Blog &amp; Content</button>
+            <button class="filter-btn" data-cat="leads">Lead Generation</button>
+            <button class="filter-btn" data-cat="bots">AI Bots</button>
+            <button class="filter-btn" data-cat="crm">CRM &amp; Client Ops</button>
+            <button class="filter-btn" data-cat="pipeline">Pipeline</button>
+            <button class="filter-btn" data-cat="social">Social &amp; Research</button>
+            <button class="filter-btn" data-cat="content">Content Analysis</button>
+            <button class="filter-btn" data-cat="video">Video &amp; Audio</button>
+            <button class="filter-btn" data-cat="image">Image &amp; Graphics</button>
+            <button class="filter-btn" data-cat="infra">Utilities</button>
+            <button class="filter-btn" data-cat="client">Client Specific</button>
+            <button class="filter-btn" data-cat="testing">Testing &amp; Misc</button>
+        </div>
+    </div>
+
+    <!-- VAULT CONTENT -->
+    <div class="vault-wrap" id="vaultContent"></div>
+</main>
+
+<footer>
+    <p>&copy; <span id="year"></span> Bryon V. Dela Paz &middot; All rights reserved.</p>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const categories = [
+  {
+    id:'pr', icon:'📡', title:'PR & Media Outreach Automation', workflows:[
+      {name:'HARO Pitch Monitor & Auto-Responder',status:'active',desc:'Monitors HARO emails via Gmail, uses OpenAI to evaluate pitch relevance, drafts responses, and creates ClickUp tasks to track submissions.',tags:['Gmail','OpenAI','ClickUp']},
+      {name:'Journalist Opportunity Monitor & Pitcher',status:'active',desc:'Watches Gmail for journalist platform opportunities, assesses fit with AI, generates pitch copy, then creates ClickUp tasks for team follow-up.',tags:['Gmail','OpenAI','ClickUp']},
+      {name:'Multi-Persona Journalist Pitch Handler',status:'active',desc:'Journalist pitch workflow configured for a secondary persona. Gmail trigger → AI analysis → ClickUp task creation for separate outreach identity.',tags:['Gmail','OpenAI','ClickUp']},
+      {name:'Journalist Request Scraper & Scorer',status:'active',desc:'Scrapes journalist requests on schedule. AI evaluates and scores opportunities, results saved to Sheets, tasks created in ClickUp.',tags:['Web Scraper','OpenAI','Google Sheets','ClickUp']},
+      {name:'Journalist Email Alert Handler',status:'active',desc:'Listens for journalist opportunity email alerts, uses OpenAI to analyze and draft pitches, creates ClickUp tasks.',tags:['Gmail','OpenAI','ClickUp']},
+      {name:'Social Media PR Opportunity Scraper',status:'active',desc:'Scrapes Twitter via Apify for PR opportunity posts, AI agent evaluates relevance, creates ClickUp tasks, logs to Google Sheets.',tags:['Apify','AI Agent','ClickUp','Google Sheets']},
+      {name:'B2B Writing Opportunity Finder',status:'active',desc:'Searches for B2B content writing opportunities via HTTP. AI agent evaluates each one, creates ClickUp tasks, uses Sheets as reference.',tags:['HTTP','AI Agent','ClickUp']},
+      {name:'Press Feature & Podcast Opportunity Monitor',status:'active',desc:'Monitors Gmail for podcast features, press mentions, and more. Classifies with OpenAI, creates tasks, enriches data from external APIs.',tags:['Gmail','OpenAI','ClickUp']},
+      {name:'AI Press Release & Multi-Platform PR Agent',status:'active',desc:'Multi-agent PR workflow triggered via Telegram. Researches with Tavily, drafts press materials, publishes to Google Docs, submits to PR platforms.',tags:['Telegram','Tavily','Google Docs','Multi-Agent']},
+      {name:'Multi-Platform Journalist Request Aggregator',status:'inactive',desc:'Aggregates journalist requests across multiple US platforms simultaneously into one data pipeline.',tags:['Multi-Source','Web Scraper']},
+    ]
+  },
+  {
+    id:'seo', icon:'🔍', title:'SEO App Suite', workflows:[
+      {name:'SEO App – Dashboard',status:'active',desc:'Main entry point of the SEO App. Handles webhook requests, serves dashboard UI data, and routes requests appropriately.',tags:['Webhook','Dashboard']},
+      {name:'SEO App – Authentication Handler',status:'active',desc:'Authentication handler for the SEO App. Manages login/logout, validates credentials, returns session tokens.',tags:['Auth','Webhook']},
+      {name:'SEO App – Page Analyzer',status:'active',desc:'Core analysis engine. Receives a URL, fetches the page, analyzes SEO signals, and returns structured results.',tags:['SEO','API','Analyzer']},
+      {name:'SEO App – Background Job Processor',status:'active',desc:'Scheduled processor for queued analysis jobs. Keeps real-time UX fast by handling heavy lifting in the background.',tags:['Scheduled','Queue']},
+      {name:'SEO App – Data Exporter',status:'active',desc:'Handles data export requests. Validates, queries data store, formats output, and returns downloadable response.',tags:['Export','Data']},
+      {name:'Full-Site SEO Audit & Analysis Engine',status:'active',desc:'Standalone comprehensive SEO tool triggered via form. Crawls site, analyzes technical SEO, content quality, backlinks with AI. Results to Sheets.',tags:['Form','AI','Google Sheets','SEO']},
+    ]
+  },
+  {
+    id:'keyword', icon:'🔑', title:'Keyword Research Suite', workflows:[
+      {name:'Keyword Data Fetching Toolkit',status:'active',desc:'Sub-workflow toolkit for keyword research. Routes requests via switch node to different data sources (SEMrush, Ahrefs, custom APIs).',tags:['SEMrush','Ahrefs','Sub-workflow']},
+      {name:'Keyword Research Orchestrator',status:'inactive',desc:'Orchestration workflow that calls keyword tools sub-workflow, aggregates results, and formats for blog planning and content briefs.',tags:['Orchestration','Sub-workflow']},
+      {name:'Keyword Impact Prioritizer',status:'active',desc:'Takes a keyword list, fetches RSS and Tavily search signals, scores each keyword by impact, returns prioritized list.',tags:['Tavily','RSS','AI Scoring']},
+    ]
+  },
+  {
+    id:'blog', icon:'✍️', title:'Blog & Content Generation', workflows:[
+      {name:'Automated SEO Blog Post Publisher',status:'active',desc:'Fully automated blog pipeline. Reads topics from Sheets, generates SEO-optimized post with OpenAI, fetches data via Tavily, generates visuals with Gemini, publishes to WordPress.',tags:['WordPress','OpenAI','Gemini','Tavily']},
+      {name:'Scheduled Industry Blog Automation',status:'active',desc:'Same automated blog pipeline configured for a niche industry client. Pulls topics from Sheets, uses OpenAI + Gemini, publishes to WordPress.',tags:['WordPress','OpenAI','Gemini']},
+      {name:'Multi-Agent Blog Writer 2.0',status:'inactive',desc:'Upgraded blog writer using multi-agent setup with chain-of-thought reasoning and deeper research before publishing to WordPress.',tags:['Multi-Agent','Tavily','WordPress']},
+      {name:'Telegram-Triggered On-Demand Blog Publisher',status:'active',desc:'Telegram-triggered blog writer. Accepts a topic via Telegram, routes to an agent that researches, writes, and publishes to WordPress. Confirms via Telegram.',tags:['Telegram','AI Agent','WordPress']},
+      {name:'One-Time On-Demand Blog Generator',status:'active',desc:'Manually triggered on-demand blog post generator. Runs a single research-and-write cycle and posts to WordPress.',tags:['Manual','WordPress','OpenAI']},
+      {name:'General-Purpose Blog Post Generator',status:'inactive',desc:'General-purpose automated blog post creator. Researches topics, generates full articles with OpenAI, publishes to WordPress.',tags:['OpenAI','WordPress']},
+      {name:'Agent-Based Blog Writer 2.0',status:'inactive',desc:'Upgraded blog iteration with enhanced agent-based writing logic for deeper content quality.',tags:['AI Agent','WordPress']},
+      {name:'Niche Product SEO Blog Automation',status:'inactive',desc:'Scheduled SEO-focused blog automation for a niche product vertical. Generates and publishes targeted content to WordPress.',tags:['Scheduled','SEO','WordPress']},
+      {name:'Lifestyle Brand Blog Automation',status:'inactive',desc:'Automated blog writer generating product and lifestyle content for a consumer brand\'s WordPress site.',tags:['WordPress','Brand Content']},
+      {name:'Regulated Niche Blog Post Generator',status:'inactive',desc:'Specialized blog post generator for content in a regulated niche with specific compliance and content requirements.',tags:['WordPress','Niche Content']},
+      {name:'Trending Topic SEO Post Generator',status:'inactive',desc:'Generates blog content based on current trending topics pulled from trend APIs or RSS, then writes timely posts.',tags:['RSS','Trending','WordPress']},
+      {name:'Branded Blog Banner Image Generator',status:'inactive',desc:'Generates featured images/banners for blog posts with consistent branding using AI image generation, saves to Google Drive.',tags:['AI Image Gen','Google Drive','Branding']},
+    ]
+  },
+  {
+    id:'leads', icon:'🎯', title:'Lead Generation & Enrichment', workflows:[
+      {name:'Multi-Agent Lead Generation System',status:'active',desc:'Multi-agent lead gen system with Telegram interface. Scrapes via HTTP APIs, deduplicates, enriches with OpenAI, saves to Sheets. Sends results via Gmail.',tags:['Multi-Agent','Telegram','OpenAI','Google Sheets']},
+      {name:'Instagram Contact Enrichment Pipeline v1',status:'active',desc:'Accepts form submission with Instagram handle, scrapes via Apify, AI extracts and validates contact info, writes enriched leads to Sheets.',tags:['Apify','AI Agent','Google Sheets']},
+      {name:'Instagram Contact Enrichment Pipeline v2',status:'active',desc:'Parallel second instance of the Instagram enrichment workflow with identical pipeline for redundancy and load distribution.',tags:['Apify','AI Agent','Google Sheets']},
+      {name:'Instagram Profile Lead Scraper',status:'inactive',desc:'Earlier simpler version of the Instagram lead scraper pulling publicly available contact data from Instagram profiles.',tags:['Apify','Scraper']},
+      {name:'Basic Lead Data Collector',status:'inactive',desc:'Simplified lead scraping workflow using HTTP requests to collect and format lead data.',tags:['HTTP','Scraper']},
+      {name:'Sales Database Lead Scraper',status:'inactive',desc:'Integrates with a sales intelligence API to pull lead data based on filters. Fixed version resolving issues from earlier iteration.',tags:['Apollo.io','API']},
+      {name:'Multi-Source Business Data Scraper',status:'inactive',desc:'Gathers comprehensive business data (name, contact, social, company) from multiple sources and structures for CRM ingestion.',tags:['Multi-Source','CRM']},
+      {name:'Multi-Client Lead Enrichment Pipeline',status:'inactive',desc:'Runs enrichment for leads across four distinct client accounts simultaneously, appending missing data to existing lead records.',tags:['Multi-Client','Enrichment']},
+      {name:'AI Lead Enrichment & Quality Scoring Agent',status:'inactive',desc:'AI agent that enriches raw leads with web data and applies a scoring model to rank quality before CRM handoff.',tags:['AI Agent','Scoring','CRM']},
+      {name:'Lead Deduplication & Country Segmentation',status:'inactive',desc:'Cleans lead lists by removing duplicates then segments by country for targeted outreach routing.',tags:['Data Cleaning','Segmentation']},
+      {name:'Local Business Listing Scraper',status:'inactive',desc:'Queries Google Maps API for business listings with proper pagination handling, used as a local business lead source.',tags:['Google Maps','API','Pagination']},
+      {name:'Niche Industry Lead Generation',status:'inactive',desc:'Niche lead generation targeting companies in a specialized imaging industry using web scraping and AI filtering.',tags:['Niche','AI Filter','Scraper']},
+      {name:'Niche Industry Lead Generation – Variant',status:'inactive',desc:'Variant of the industry-specific lead generation workflow configured for a separate client within the same niche.',tags:['Niche','Variant']},
+      {name:'Real Estate Utility Data Extractor',status:'inactive',desc:'Extracts utility and property data relevant to real estate deals by scraping public data sources to enrich leads.',tags:['Real Estate','Data Extraction']},
+      {name:'Pre-Call Prospect Research Agent',status:'inactive',desc:'On-demand workflow to research a prospect\'s background — company history, news, funding — before a sales call.',tags:['Research','Tavily','Sales Prep']},
+    ]
+  },
+  {
+    id:'bots', icon:'🤖', title:'AI Bots & Assistants', workflows:[
+      {name:'Multi-Tool AI Super Agent',status:'active',desc:'The flagship multi-agent system. Telegram-triggered super-agent with access to Drive, Sheets, Gmail, Calendar, Airtable, Tavily, HTTP tools, and MCP clients. Routes to specialized sub-agents.',tags:['Multi-Agent','Telegram','MCP','Google Suite','Airtable']},
+      {name:'Conversational AI Assistant with Memory',status:'active',desc:'Telegram-based AI assistant with MCP tool access and persistent memory. Routes conversational requests through OpenAI.',tags:['Telegram','OpenAI','MCP','Memory']},
+      {name:'Meeting Summary & Task Creator Bot',status:'active',desc:'AI assistant that reads and summarizes meeting transcripts, routes through OpenAI, creates tasks or sends Telegram updates. Has persistent memory.',tags:['Transcription','OpenAI','ClickUp','Telegram']},
+      {name:'AI Project Manager Bot',status:'active',desc:'Project management AI bot. Handles Telegram-triggered PM actions — creating/updating tasks, processing documents, reporting with AI-generated summaries.',tags:['Telegram','ClickUp','Google Drive','AI Summary']},
+      {name:'CRM-Integrated AI Team Assistant',status:'active',desc:'Telegram bot with CRM integration via MCP. Handles CRM queries, schedules via Calendar, processes Drive files. AI assistant for internal team.',tags:['Telegram','GoHighLevel','MCP','CRM']},
+      {name:'AI Proposal Generator Bot',status:'active',desc:'Telegram-triggered proposal generator. Takes client details, routes through AI agents to research, write, and format proposals, saves to Google Docs.',tags:['Telegram','Multi-Agent','Google Docs','Proposals']},
+      {name:'Voice Call Callback Processor',status:'active',desc:'Handles voice call callbacks from Retell AI. Processes transcripts with AI, updates Sheets with call outcomes, publishes to WordPress, manages next-step actions.',tags:['Voice AI','AI Agent','WordPress','Google Sheets']},
+      {name:'General-Purpose AI Agent Template',status:'active',desc:'General-purpose AI agent workflow used for testing and as a template for new agent-based automations.',tags:['Template','AI Agent']},
+      {name:'General-Purpose AI Workflow',status:'inactive',desc:'General-purpose AI workflow handling miscellaneous AI-assisted tasks on demand.',tags:['AI','Miscellaneous']},
+      {name:'Telegram PR Opportunity Assistant',status:'inactive',desc:'Telegram bot for PR team members to check opportunities, draft pitches, or query the PR pipeline.',tags:['Telegram','PR']},
+      {name:'Meeting Content Processing Bot',status:'inactive',desc:'AI assistant for processing board or meeting content — summarizing, extracting action items, and routing outputs.',tags:['Meetings','AI']},
+      {name:'Internal Operations AI Assistant',status:'inactive',desc:'Telegram-triggered AI assistant for internal operations. Queries Sheets, processes through AI, publishes to Docs, manages scheduled tasks.',tags:['Telegram','Google Sheets','Scheduled']},
+    ]
+  },
+  {
+    id:'crm', icon:'🤝', title:'Client & CRM Operations', workflows:[
+      {name:'Client Onboarding & Data Integration',status:'active',desc:'Onboards new clients. Takes form submissions, extracts data from uploaded files, uses OpenAI to parse and structure, writes to Sheets, notifies team.',tags:['Form','OpenAI','Google Sheets','Onboarding']},
+      {name:'Dual-CRM Contact Sync',status:'inactive',desc:'Syncs contact records between two CRM platforms keeping data consistent and eliminating manual duplication.',tags:['GoHighLevel','HubSpot','CRM Sync']},
+      {name:'Sales Call Preparation & Logging v1',status:'inactive',desc:'Supports the sales process — pre-call research, generates talking points, logs outcomes post-call.',tags:['Sales','CRM','Research']},
+      {name:'Sales Call Preparation & Logging v2',status:'inactive',desc:'Second instance of sales call workflow, parallel deployment for different teams or territories.',tags:['Sales','CRM']},
+      {name:'Brand Intelligence Research Workflow',status:'inactive',desc:'Researches brand signals — competitor mentions, tone analysis, market positioning data.',tags:['Research','Branding','AI']},
+      {name:'Website Form-to-Workflow Handler',status:'inactive',desc:'Handles webhook and form interactions from a client-facing website and routes them into the internal workflow system.',tags:['Webhook','Web Integration']},
+    ]
+  },
+  {
+    id:'pipeline', icon:'📥', title:'Opportunities & Pipeline Management', workflows:[
+      {name:'Opportunity Scoring & Insights Engine',status:'active',desc:'Sub-workflow that receives raw opportunity data, processes and scores it through multiple code transformations, returns structured insights via webhook.',tags:['Sub-workflow','Scoring','Webhook']},
+      {name:'AI Email Opportunity Classifier',status:'active',desc:'Monitors Gmail for opportunities using AI agent. Classifies and routes each to a task or spreadsheet using a structured output parser.',tags:['Gmail','AI Agent','ClickUp']},
+      {name:'AI Link-Building Outreach Agent',status:'active',desc:'Multi-agent link-building workflow via Telegram. Researches opportunities with Tavily, drafts outreach, publishes to Docs, submits to target sites via HTTP.',tags:['Telegram','Tavily','Multi-Agent','Link Building']},
+      {name:'Twice-Daily Email Triage Bot',status:'active',desc:'Scheduled Gmail monitor that runs twice daily. AI classifies and prioritizes emails, creates tasks for action items, filters irrelevant mail.',tags:['Scheduled','Gmail','AI Agent','ClickUp']},
+      {name:'Inbox Triage & Routing Automation',status:'inactive',desc:'Automates email inbox triage — reads, classifies, routes to right team member or creates follow-up tasks.',tags:['Gmail','Triage','Routing']},
+      {name:'Dedicated Inbox Triage Automation',status:'inactive',desc:'Inbox triage automation configured for a specific brand inbox with custom routing rules.',tags:['Gmail','Brand Specific']},
+    ]
+  },
+  {
+    id:'social', icon:'📱', title:'Social Media & Competitive Research', workflows:[
+      {name:'TikTok Competitor Content Analyzer',status:'active',desc:'Accepts competitor TikTok handle via form, scrapes content via Apify, analyzes performance with Gemini and AI agent, exports competitive analysis to Sheets.',tags:['TikTok','Apify','Gemini','Google Sheets']},
+      {name:'Daily Social Trend Scout & Content Ideator',status:'inactive',desc:'Runs daily to identify trending social media topics, analyzes with AI, generates content ideas or draft posts.',tags:['Trending','Scheduled','AI']},
+      {name:'Per-Business Social Trend Recommender',status:'inactive',desc:'Generates five on-trend content recommendations per business from trend data filtered by industry/niche.',tags:['Recommendations','Trends']},
+    ]
+  },
+  {
+    id:'content', icon:'📝', title:'Content Analysis & Recreation', workflows:[
+      {name:'URL Content Analyzer & Rewriter',status:'active',desc:'Takes a URL via form, fetches page content, analyzes structure and messaging with AI agent, recreates a rewritten or reformatted version saved to Airtable.',tags:['URL','AI Agent','Airtable','Content Repurposing']},
+      {name:'URL Content Analyzer & Rewriter (Legacy)',status:'inactive',desc:'Earlier version of the content analyzer and rewriter workflow.',tags:['Legacy','Airtable']},
+      {name:'Content Generation Master Orchestrator',status:'inactive',desc:'High-level orchestration that coordinates multiple content generation sub-workflows, routing briefs to specialist workflows.',tags:['Orchestration','Sub-workflow']},
+    ]
+  },
+  {
+    id:'video', icon:'🎬', title:'Video & Audio Processing', workflows:[
+      {name:'AI B-Roll Selector & Organizer',status:'active',desc:'Manages B-roll video selection for production. Checks a content library for B-roll needs, retrieves assets from Drive, uses Gemini to match B-roll to content.',tags:['Airtable','Google Drive','Gemini','Video']},
+      {name:'Audio Upload Transcriber & Topic Extractor',status:'active',desc:'Accepts audio uploads via form, transcribes via API, processes transcript with AI to extract topics and insights, notifies via Telegram.',tags:['Form','Transcription','AI','Telegram']},
+      {name:'AI Talking-Head Avatar Generator',status:'active',desc:'Creates AI video avatars via API. Makes sequential calls to configure, generate, and retrieve a talking-head video. AI prepares the script.',tags:['HeyGen','AI','Video Gen']},
+      {name:'Google Drive Audio Auto-Transcriber',status:'inactive',desc:'Watches Google Drive for new audio files, transcribes via API, and stores the transcription result.',tags:['Google Drive','Transcription']},
+      {name:'AI Animated Video Generator',status:'inactive',desc:'Integrates with an AI video generation API to create animated video content from prompts or images.',tags:['AI Video Gen','Kling']},
+      {name:'Audio-to-Talking Avatar Converter',status:'inactive',desc:'Converts audio input into a synchronized talking avatar video using an AI video synthesis API.',tags:['Avatar','Video','AI']},
+      {name:'Transcription Pipeline Validation Workflow',status:'inactive',desc:'Test workflow for validating the audio transcription pipeline before production deployment.',tags:['Testing','Transcription']},
+    ]
+  },
+  {
+    id:'image', icon:'🎨', title:'Image & Graphics Automation', workflows:[
+      {name:'Image Upload Asset Manager',status:'active',desc:'Receives image uploads via webhook, saves to Google Drive, creates corresponding record in a database for asset tracking and management.',tags:['Webhook','Google Drive','Airtable']},
+      {name:'Scheduled Brand Graphics Generator',status:'active',desc:'Scheduled workflow that generates branded graphics from a content brief. Uses AI for visual generation, saves to Drive, updates asset records.',tags:['Scheduled','Gemini','Airtable','Branding']},
+      {name:'AI Image Generation Sub-Workflow',status:'inactive',desc:'Reusable sub-workflow that handles the AI image generation call and returns the result to the calling workflow.',tags:['Sub-workflow','AI Image Gen']},
+      {name:'AI Image Generation Sub-Workflow (Variant)',status:'inactive',desc:'Variant of the image generator sub-workflow for a different image type or output format.',tags:['Sub-workflow','AI Image Gen']},
+      {name:'AI-Powered Image Editor Tool',status:'inactive',desc:'Applies AI-powered edits to an input image — part of a creative automation toolkit.',tags:['AI Image Edit','Tool']},
+      {name:'Multi-Image Compositor',status:'inactive',desc:'Combines multiple images into a single composite image for creative or marketing production.',tags:['Composite','AI Image Gen']},
+      {name:'Programmatic AI Image Editor Agent',status:'inactive',desc:'AI agent that directs image editing actions programmatically — an automated AI-powered photo editor.',tags:['AI Agent','Image Edit']},
+    ]
+  },
+  {
+    id:'infra', icon:'⚙️', title:'Utility, Sub-Workflows & Infrastructure', workflows:[
+      {name:'AI Resource & Link Provider',status:'active',desc:'Lightweight sub-workflow that accepts a trigger, passes to an AI agent, and returns a relevant resource or link. Reusable tool across workflows.',tags:['Sub-workflow','OpenRouter','AI']},
+      {name:'HTTP Data Fetcher & Deduplicator',status:'active',desc:'Sub-workflow triggered by other workflows. Handles HTTP data fetching, deduplication, and saving results to Google Sheets.',tags:['Sub-workflow','HTTP','Google Sheets']},
+      {name:'Booking-Triggered Welcome Sequence',status:'active',desc:'Triggered by a new calendar booking. Enriches the contact via data API, generates a personalized message with OpenAI, sends via Gmail.',tags:['Calendly','Dropcontact','OpenAI','Gmail']},
+      {name:'Scraper Results Telegram Notifier',status:'active',desc:'Sub-workflow that runs scraping jobs and sends results to Telegram for review.',tags:['Apify','Telegram','Sub-workflow']},
+      {name:'n8n Workflow Health Analyzer',status:'inactive',desc:'Analyzes existing n8n workflows — inspects node configs, identifies issues, reports on workflow health.',tags:['Meta','Analysis']},
+      {name:'General-Purpose Reusable Sub-Workflow',status:'inactive',desc:'General-purpose sub-workflow used internally as a building block by other parent workflows.',tags:['Sub-workflow']},
+      {name:'Experimental Workflow Sandbox',status:'inactive',desc:'Various workflows in development or used as scratch pads — unfinished or experimental builds for testing new ideas.',tags:['Experimental','WIP']},
+    ]
+  },
+  {
+    id:'client', icon:'🏢', title:'Niche & Vertical-Specific Workflows', workflows:[
+      {name:'Beverage Brand Blog Publisher',status:'active',desc:'Automated blog content pipeline for a beverage/lifestyle brand. Researches topics, writes with AI, publishes to WordPress.',tags:['WordPress','AI','Brand Content']},
+      {name:'Multi-Workflow System Orchestrator',status:'inactive',desc:'Primary parent workflow that orchestrates and coordinates a multi-workflow system.',tags:['Orchestration']},
+      {name:'Enhanced Multi-Workflow Orchestrator 2.0',status:'inactive',desc:'Upgraded orchestration workflow with improved agent logic and additional integrations.',tags:['AI Agent','Upgraded']},
+      {name:'Personalized Client Outreach Automation',status:'inactive',desc:'Custom outreach automation for a specific client — handles personalized content generation and targeted communication.',tags:['Client Specific','Outreach']},
+      {name:'LinkedIn Reply & Conversation Handler',status:'inactive',desc:'Monitors and manages LinkedIn conversation replies. Uses AI to draft responses and logs conversations.',tags:['LinkedIn','AI','CRM']},
+      {name:'Product Cold Outreach Automation',status:'inactive',desc:'Automates cold outreach sequences for a niche product — calls, messages, or emails to targeted prospects.',tags:['Cold Outreach','Automation']},
+      {name:'Brand CRM & Content Automation',status:'inactive',desc:'Automation handling both CRM data management and content publishing for a specific brand vertical.',tags:['CRM','Content','Brand']},
+    ]
+  },
+  {
+    id:'testing', icon:'🧪', title:'Testing & Miscellaneous', workflows:[
+      {name:'Task Manager API Integration Test',status:'inactive',desc:'Test workflow for validating task management node configurations and API connectivity.',tags:['Testing','ClickUp']},
+      {name:'Vector Database Integration Test',status:'inactive',desc:'Tests the Pinecone vector database integration — part of an RAG or semantic search system in development.',tags:['Testing','Pinecone','RAG']},
+      {name:'Basic Email Send Tester',status:'inactive',desc:'Minimal workflow that sends a single email via Gmail. Used for quick testing or as a building block.',tags:['Gmail','Testing']},
+      {name:'Lead Generation Draft Workflow',status:'inactive',desc:'General lead generation workflow in development — draft before replacement by a more specific production workflow.',tags:['Draft','Lead Gen']},
+    ]
+  },
+];
+
+// Build DOM
+const vault = document.getElementById('vaultContent');
+
+categories.forEach(cat => {
+  const section = document.createElement('section');
+  section.className = 'cat-section reveal';
+  section.dataset.cat = cat.id;
+
+  section.innerHTML = `
+    <div class="cat-header">
+      <span class="cat-icon">${cat.icon}</span>
+      <h2 class="cat-title">${cat.title}</h2>
+      <span class="cat-count">${cat.workflows.length} WORKFLOWS</span>
+      <div class="cat-line"></div>
+    </div>
+    <div class="cards-grid">
+      ${cat.workflows.map(wf => `
+        <div class="wf-card" data-cat="${cat.id}">
+          <div class="wf-name">${wf.name}</div>
+          <div class="wf-desc">${wf.desc}</div>
+          <div class="wf-tags">
+            ${wf.tags.map((t,i) => `<span class="wf-tag${i===0?' yellow':''}">${t}</span>`).join('')}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  vault.appendChild(section);
+});
+
+// Filter logic
+const filterBtns = document.querySelectorAll('.filter-btn');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('.cat-section').forEach(sec => {
+      if (cat === 'all' || sec.dataset.cat === cat) {
+        sec.style.display = '';
+      } else {
+        sec.style.display = 'none';
+      }
+    });
+  });
+});
+
+// Reveal on scroll
+const io = new IntersectionObserver((entries, obs) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('active'); obs.unobserve(e.target); } });
+}, { threshold: 0.05 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

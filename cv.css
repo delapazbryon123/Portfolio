@@ -300,6 +300,23 @@ body {
     color: var(--text-white);
 }
 
+/* Print tip banner */
+.print-tip {
+    max-width: 1000px;
+    margin: 0 auto 0.75rem auto;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.2rem;
+    background: rgba(250, 204, 21, 0.1);
+    border: 1px solid rgba(250, 204, 21, 0.35);
+    border-radius: 8px;
+    color: #FDE68A;
+    font-size: 0.88rem;
+}
+.print-tip i { color: #FACC15; flex-shrink: 0; }
+.print-tip strong { color: #fff; }
+
 /* Print Buttons */
 .print-actions {
     max-width: 1000px;
@@ -337,6 +354,12 @@ body {
 
 
 /* Print Mode */
+@page {
+    margin: 1cm;
+    /* Removes browser-injected header/footer (date, time, file path, URL) */
+    size: A4;
+}
+
 @media print {
     body {
         background: #fff;

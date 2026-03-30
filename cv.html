@@ -3,18 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bryon V. Dela Paz - Creative Project-Focused CV</title>
+    <title>Bryon V. Dela Paz — CV</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="cv.css">
 </head>
 <body>
 
+    <!-- Print tip banner -->
+    <div id="printTip" class="print-tip no-print" style="display:none;">
+        <i class="fas fa-info-circle"></i>
+        <span>In the print dialog: uncheck <strong>"Headers and footers"</strong> to remove the date &amp; file path.</span>
+        <button onclick="document.getElementById('printTip').style.display='none'" style="background:none;border:none;color:inherit;cursor:pointer;font-size:1.1rem;margin-left:auto;opacity:0.7;">✕</button>
+    </div>
+
     <!-- Print styling controls -->
     <div class="print-actions no-print">
         <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
-        <button onclick="window.print()" class="btn-print"><i class="fas fa-print"></i> Print / Save as PDF</button>
+        <button onclick="cleanPrint()" class="btn-print" id="printBtn"><i class="fas fa-print"></i> Print / Save as PDF</button>
     </div>
+
+    <script>
+    function cleanPrint() {
+        var baseHref = window.location.href.replace(/[^\/]*$/, '');
+        
+        // Clone the CV and absolutify all links so they're clickable in the PDF
+        var clone = document.querySelector('.cv-wrapper').cloneNode(true);
+        clone.querySelectorAll('a[href]').forEach(function(a) {
+            try { a.href = new URL(a.getAttribute('href'), window.location.href).href; } catch(e) {}
+        });
+        var content = clone.outerHTML;
+
+        var w = window.open('', '_blank');
+        w.document.open();
+        w.document.write('<!DOCTYPE html><html lang="en"><head>'
+            + '<meta charset="UTF-8">'
+            + '<title>Bryon V. Dela Paz \u2014 CV</title>'
+            + '<base href="' + baseHref + '">'
+            + '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">'
+            + '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">'
+            + '<link rel="stylesheet" href="cv.css">'
+            + '</head><body>' + content + '</body></html>');
+        w.document.close();
+        setTimeout(function() { w.print(); w.close(); }, 600);
+    }
+    </script>
 
     <div class="cv-wrapper">
         <div class="cv-container">
@@ -32,7 +65,7 @@
                         <li><i class="fas fa-envelope"></i> Delapazbryon123@gmail.com</li>
                         <li><i class="fas fa-phone"></i> +63 994 365 4300</li>
                         <li><i class="fas fa-map-marker-alt"></i> Laguna, Philippines</li>
-                        <li><i class="fas fa-globe"></i> <a href="index.html">My Portfolio Web</a></li>
+                        <li><i class="fas fa-globe"></i> <a href="https://delapazbryon123.github.io/Portfolio/">My Portfolio Web</a></li>
                     </ul>
                 </div>
 
@@ -142,7 +175,7 @@
                                 <h3>Freelance Operations & AI Automation Expert</h3>
                                 <span class="company">Self Employed</span>
                             </div>
-                            <span class="date">Jan 2024 &ndash; Present</span>
+                            <span class="date">2020 &ndash; 2026</span>
                         </div>
                         <ul class="job-duties">
                             <li>Built and optimized end-to-end operational pipelines, <strong>automating 50%+ of manual tasks</strong> across SEO, Sales, and Admin functions using n8n and Zapier.</li>
