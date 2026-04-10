@@ -129,6 +129,17 @@ document.addEventListener("DOMContentLoaded", () => {
             featured: true
         },
         {
+            tag: "SEO / AI / Full-Stack",
+            title: "Agency OS — AI SEO Report Generator",
+            description: "A full-stack web app that generates professional, client-ready 11-section SEO reports from any website URL in under 40 seconds. Powered by Firecrawl (web scraping) and Google Gemini 2.5 Flash AI. Reports include keyword analysis, technical health scoring, a 30/60/90-day action plan, and are instantly downloadable as print-ready PDF.",
+            tech: ["Next.js", "Gemini AI", "Firecrawl", "TypeScript", "Vercel"],
+            link: "https://frontend-seven-wine-36.vercel.app",
+            linkText: "🚀 Launch Live App",
+            githubLink: "https://github.com/delapazbryon123/agency-os-frontend",
+            isExternal: true,
+            isLive: true
+        },
+        {
             tag: "AI / Voice / CRM",
             title: "AI-Powered Sales Automation System",
             description: "End-to-End Lead Engagement with Voice AI. A complex, multi-tool workflow designed to handle lead qualification autonomously &mdash; integrating voice calling agents, CRM platforms, and personalized content generation using n8n and OpenAI.",
@@ -223,13 +234,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
             } else {
                 card.className = "project-card glass-card glow-card hover-target";
+                if (project.isLive) {
+                    card.style.cssText = "border-color: rgba(250,204,21,0.3); position: relative; overflow: hidden;";
+                }
                 const techSpans = project.tech.map(t => `<span>${t}</span>`).join("");
+                const liveBadge = project.isLive ? `<div style="position: absolute; top: 1rem; right: 1rem; background: #FACC15; color: #000; font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 999px; letter-spacing: 1px;">LIVE ✦</div>` : "";
+                const target = project.isExternal ? 'target="_blank" rel="noopener noreferrer"' : "";
+                const githubBtn = project.githubLink ? `<a href="${project.githubLink}" target="_blank" rel="noopener noreferrer" class="btn-outline" style="margin-top: 1rem; width: fit-content; font-size: 0.85rem;">View on GitHub</a>` : "";
                 card.innerHTML = `
+                    ${liveBadge}
                     <span class="project-tag">${project.tag}</span>
                     <h3>${project.title}</h3>
                     <p class="project-description">${project.description}</p>
                     <div class="project-tech">${techSpans}</div>
-                    <a href="${project.link}" class="btn-secondary" style="margin-top: 1rem; width: fit-content; font-size: 0.85rem;">${project.linkText}</a>
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                        <a href="${project.link}" ${target} class="btn-secondary" style="margin-top: 1rem; width: fit-content; font-size: 0.85rem;">${project.linkText}</a>
+                        ${githubBtn}
+                    </div>
                 `;
             }
 
