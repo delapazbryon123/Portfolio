@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Agency OS — AI-powered SEO Report Generator. Built by Bryon V. Dela Paz using Next.js, Google Gemini 2.5 Flash, and Firecrawl.">
+    <title>Agency OS — AI SEO Report Generator | Bryon V. Dela Paz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .pill {
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid var(--accent-yellow);
+            color: var(--accent-yellow);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #FACC15;
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 0.3rem 0.9rem;
+            border-radius: 999px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        .live-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #000;
+            animation: pulse-dot 1.5s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .tool-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            margin-bottom: 1rem;
+        }
+        .tool-icon {
+            font-size: 2rem;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .tool-card h4 { color: var(--accent-yellow); margin-bottom: 0.3rem; }
+        .tool-card p { font-size: 0.9rem; color: #9CA3AF; margin: 0; }
+        .stat-box {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: rgba(250,204,21,0.05);
+            border: 1px solid rgba(250,204,21,0.15);
+        }
+        .stat-box .num { font-size: 2.5rem; font-weight: 800; color: var(--accent-yellow); }
+        .stat-box .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #6B7280; margin-top: 0.25rem; }
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(250,204,21,0.12), rgba(250,204,21,0.03));
+            border: 1px solid rgba(250,204,21,0.25);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            text-align: center;
+            margin-top: 5rem;
+        }
+        .cta-banner h2 { color: #fff; margin-bottom: 0.75rem; }
+        .cta-banner p { color: #9CA3AF; margin-bottom: 2rem; }
+        .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-grid"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-content">
+            <a href="index.html#home" class="logo">BDP</a>
+            <ul class="nav-links">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#automations">Projects</a></li>
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="agency-os.html" class="btn-nav" style="background: var(--accent-yellow); color: #000;">Agency OS ✦</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="section-padding reveal active" style="padding-top: 8rem;">
+
+            <!-- Header -->
+            <div class="section-header">
+                <div class="live-badge">Live Product</div>
+                <span class="section-label">FULL-STACK AI APP</span>
+                <h1>Agency OS<br>AI SEO Report Generator</h1>
+                <p class="hero-subtitle" style="max-width: 680px;">
+                    A full-stack web application that scrapes any website and generates a professional,
+                    client-ready 11-section SEO strategy report in under 40 seconds — powered by
+                    Firecrawl and Google Gemini 2.5 Flash.
+                </p>
+                <div class="hero-actions" style="margin-top: 2rem;">
+                    <a href="https://frontend-seven-wine-36.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-primary">🚀 Launch Live App</a>
+                    <a href="https://github.com/delapazbryon123/agency-os-frontend" target="_blank" rel="noopener noreferrer" class="btn-secondary">View on GitHub</a>
+                    <a href="index.html#automations" class="btn-outline">← Back to Projects</a>
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin: 4rem 0;">
+                <div class="stat-box"><div class="num">11</div><div class="label">Report Sections</div></div>
+                <div class="stat-box"><div class="num">&lt;40s</div><div class="label">Generation Time</div></div>
+                <div class="stat-box"><div class="num">3</div><div class="label">AI Models (Cascade)</div></div>
+                <div class="stat-box"><div class="num">100%</div><div class="label">Free to Run</div></div>
+                <div class="stat-box"><div class="num">PDF</div><div class="label">Print-Ready Output</div></div>
+            </div>
+
+            <!-- Overview Card -->
+            <div class="glass-card glow-card" style="margin-bottom: 3rem;">
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                    <div class="pill">Next.js 16</div>
+                    <div class="pill">Gemini 2.5 Flash</div>
+                    <div class="pill">Firecrawl API</div>
+                    <div class="pill">TypeScript</div>
+                    <div class="pill">Vercel</div>
+                    <div class="pill">Tailwind CSS</div>
+                </div>
+                <h2>What is Agency OS?</h2>
+                <p style="color: #9CA3AF; line-height: 1.8;">
+                    Agency OS is a full-stack SEO automation tool built to demonstrate how a modern AI agency
+                    operates. A user pastes any client website URL into the dashboard. The app securely scrapes
+                    the entire website via Firecrawl, converts it to structured Markdown, then passes it to
+                    Google Gemini 2.5 Flash acting as a senior SEO strategist — producing a fully styled,
+                    downloadable HTML report that's ready to hand directly to a client.
+                </p>
+                <p style="color: #9CA3AF; line-height: 1.8; margin-top: 1rem;">
+                    The entire workflow runs in under 40 seconds, replaces hours of manual research, and is
+                    deployable at zero ongoing cost using free API tiers.
+                </p>
+            </div>
+
+            <!-- The 3 Tools -->
+            <div class="section-header" style="margin-top: 5rem;">
+                <h2>How It Works — The 3-Tool Pipeline</h2>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">🕸️</div>
+                <div>
+                    <h4>Step 1 — Firecrawl: Website Scraping</h4>
+                    <p>When the user submits a URL, the Next.js server route calls the Firecrawl API. Firecrawl crawls the entire site, strips ads and navigation noise, and returns clean Markdown — the actual content the AI needs to read intelligently.</p>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">🧠</div>
+                <div>
+                    <h4>Step 2 — Gemini 2.5 Flash: AI Strategy Engine</h4>
+                    <p>The clean Markdown is passed to Google Gemini with a 150-line system prompt instructing it to act as a senior SEO strategist. It generates a complete 11-section HTML report with keyword opportunity tiers, technical health scores, callout boxes, and an action plan — output directly as styled HTML.</p>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">⚡</div>
+                <div>
+                    <h4>Step 3 — Next.js + Vercel: Secure Delivery</h4>
+                    <p>A Next.js server API route acts as a secure middleman — API keys never touch the browser. The finished HTML report renders in a full-screen iframe with a toolbar that lets users download it with one click and print to PDF instantly.</p>
+                </div>
+            </div>
+
+            <!-- 11 Sections -->
+            <div class="section-header" style="margin-top: 5rem;">
+                <h2>The 11-Section Report</h2>
+            </div>
+
+            <div class="glass-card outline">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.75rem;">
+                    <div style="color: #9CA3AF;">✦ &nbsp;<strong style="color: #fff;">Executive Summary</strong> — metric snapshot table</div>
+                    <div style="color: #9CA3AF;">✦ &nbsp;<strong style="color: #fff;">Key Highlights</strong> — wins &amp; challenges</div>
+                    <div style="color: #9CA3AF;">✦ &nbsp;<strong style="color: #fff;">Performance Overview</strong> — US-focused traffic profile</div>
+                    <div style="color: #9CA3AF;">✦ &nbsp;<strong style="color: #fff;">Keyword Performance</strong> — opportunity tier table</div>
+                    <div style="color: #9CA3AF;">✦ &nbsp;<strong style="color: #fff;">Content Performance</strong> — top pages &amp; gaps</div>
+                    <div style="color: #9CA3AF;">✦ &nbsp;<strong style="color: #fff;">Technical SEO Health</strong> — ✅ / ⚠️ / ❌ scoring</div>
+                    <div style="color: #9CA3AF;">✦ &nbsp;<strong style="color: #fff;">Schema Fix Guide</strong> — Rank Math / Yoast steps</div>
+                    <div style="color: #9CA3AF;">✦ &nbsp;<strong style="color: #fff;">Backlink Roadmap</strong> — 3-tier link building plan</div>
+                    <div style="color: #9CA3AF;">✦ &nbsp;<strong style="color: #fff;">Opportunities Table</strong> — ranked by priority &amp; effort</div>
+                    <div style="color: #9CA3AF;">✦ &nbsp;<strong style="color: #fff;">30 / 60 / 90-Day Action Plan</strong> — 3-column layout</div>
+                    <div style="color: #9CA3AF;">✦ &nbsp;<strong style="color: #fff;">Risks &amp; Watchouts</strong> — alert boxes with mitigation</div>
+                    <div style="color: #9CA3AF;">✦ &nbsp;<strong style="color: #fff;">Summary &amp; Next Steps</strong> — CTA &amp; Appendix</div>
+                </div>
+            </div>
+
+            <!-- Architecture -->
+            <div class="section-header" style="margin-top: 5rem;">
+                <h2>Technical Architecture</h2>
+            </div>
+
+            <div class="glass-card outline">
+                <div class="skills-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div class="skill-category">
+                        <h4>Frontend</h4>
+                        <ul class="experience-list">
+                            <li>Next.js 16 (App Router)</li>
+                            <li>Tailwind CSS</li>
+                            <li>TypeScript</li>
+                            <li>React Hooks</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Backend (Server Routes)</h4>
+                        <ul class="experience-list">
+                            <li>Next.js API Routes</li>
+                            <li>Secure env key handling</li>
+                            <li>3-model AI cascade</li>
+                            <li>503 auto-retry logic</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h4>AI / Data</h4>
+                        <ul class="experience-list">
+                            <li>Google Gemini 2.5 Flash</li>
+                            <li>Gemini 2.0 Flash (fallback)</li>
+                            <li>Firecrawl v1 API</li>
+                            <li>150-line system prompt</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Deployment</h4>
+                        <ul class="experience-list">
+                            <li>Vercel (auto-deploy)</li>
+                            <li>GitHub CI/CD</li>
+                            <li>Environment variables</li>
+                            <li>Zero config CDN</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="section-header" style="margin-top: 5rem;">
+                <h2>Build Timeline</h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-card hover-lift">
+                        <div class="timeline-header"><h3>Phase 1 — Frontend Foundation</h3></div>
+                        <p>Scaffolded Next.js 16 with Tailwind CSS. Built the dark-themed dashboard UI with yellow portfolio branding, animated loading state, and full-screen iframe report viewer with toolbar.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-card hover-lift">
+                        <div class="timeline-header"><h3>Phase 2 — AI Engine</h3></div>
+                        <p>Built the secure Next.js server API route integrating Firecrawl for web scraping and Google Gemini for report generation. Wrote the 150-line SEO strategist prompt based on real agency report standards.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-card hover-lift">
+                        <div class="timeline-header"><h3>Phase 3 — Resilience &amp; Deployment</h3></div>
+                        <p>Added a 3-tier model cascade (2.5 Flash → 2.0 Flash → flash-latest) with 503 retry logic for reliability during peak demand. Deployed to Vercel via GitHub CI/CD with zero-exposure API key handling.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-banner">
+                <h2>Try Agency OS Live</h2>
+                <p>Enter any website URL and get a full professional SEO report in under 40 seconds.</p>
+                <div class="btn-group">
+                    <a href="https://frontend-seven-wine-36.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-primary large">🚀 Launch the App</a>
+                    <a href="https://github.com/delapazbryon123/agency-os-frontend" target="_blank" rel="noopener noreferrer" class="btn-outline">View Source on GitHub</a>
+                    <a href="index.html#contact" class="btn-secondary">Hire Me to Build Your Version</a>
+                </div>
+            </div>
+
+            <div class="center" style="margin-top: 3rem;">
+                <a href="index.html#automations" class="btn-outline">← Return to All Projects</a>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; <span id="year"></span> Bryon V. Dela Paz &middot; All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+        const navbar = document.getElementById("navbar");
+        window.addEventListener("scroll", () => {
+            navbar.classList.toggle("scrolled", window.scrollY > 50);
+        });
+    </script>
+
+</body>
+</html>
