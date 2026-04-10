@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Live Projects by Bryon V. Dela Paz — deployed full-stack web apps and AI tools built for real use.">
+    <title>Live Projects | Bryon V. Dela Paz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .live-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #FACC15;
+            margin-right: 6px;
+            animation: pulse-live 1.5s infinite;
+        }
+        @keyframes pulse-live {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+        .live-project-card {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            padding: 2rem 2.5rem;
+            border-radius: 1.25rem;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: rgba(255,255,255,0.02);
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s ease, background 0.3s ease, transform 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .live-project-card:hover {
+            border-color: rgba(250,204,21,0.35);
+            background: rgba(250,204,21,0.03);
+            transform: translateY(-3px);
+        }
+        .live-project-card.featured {
+            border-color: rgba(250,204,21,0.2);
+            background: linear-gradient(135deg, rgba(250,204,21,0.05), rgba(0,0,0,0));
+        }
+        .live-badge-sm {
+            display: inline-flex;
+            align-items: center;
+            background: #FACC15;
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-left: 0.75rem;
+            vertical-align: middle;
+        }
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            min-width: 160px;
+        }
+        .card-meta {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.75rem;
+        }
+        .meta-tag {
+            font-size: 0.75rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #9CA3AF;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+        }
+        .coming-soon-card {
+            padding: 2rem 2.5rem;
+            border-radius: 1.25rem;
+            border: 1px dashed rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.01);
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+        .coming-soon-card h3 { color: #6B7280; margin-bottom: 0.4rem; }
+        .coming-soon-card p { color: #4B5563; font-size: 0.9rem; }
+        @media (max-width: 600px) {
+            .live-project-card { grid-template-columns: 1fr; }
+            .card-actions { flex-direction: row; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-grid"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-content">
+            <a href="index.html#home" class="logo" style="display:inline-flex;align-items:center;gap:0.6rem;text-decoration:none;">
+                <img src="Picture.png.avif" alt="Bryon V. Dela Paz" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(250,204,21,0.5);">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#automations">Projects</a></li>
+                <li><a href="n8n-workflows.html">Workflows</a></li>
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="index.html#certifications">Certifications</a></li>
+                <li><a href="live-projects.html" class="btn-nav" style="background: var(--accent-yellow); color: #000;">⚡ Live Projects</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="section-padding reveal active" style="padding-top: 8rem;">
+
+            <!-- Header -->
+            <div class="section-header">
+                <span class="section-label">DEPLOYED & RUNNING</span>
+                <h1><span class="live-dot"></span>Live Projects</h1>
+                <p class="hero-subtitle" style="max-width: 600px;">
+                    Full-stack web apps and AI tools built and deployed to production.
+                    Each project is live, accessible, and ready for real client use.
+                </p>
+            </div>
+
+            <!-- Live Projects List -->
+            <div style="margin-top: 4rem; max-width: 900px;">
+
+                <!-- Agency OS -->
+                <div class="live-project-card featured">
+                    <div>
+                        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+                            <span class="project-tag" style="margin: 0;">SEO / AI / Next.js</span>
+                            <span class="live-badge-sm">LIVE ✦</span>
+                        </div>
+                        <h2 style="font-size: 1.6rem; margin-bottom: 0.5rem;">Agency OS — AI SEO Report Generator</h2>
+                        <p style="color: #9CA3AF; font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.75rem;">
+                            Scrapes any website and generates a professional 11-section SEO strategy report in under 40 seconds.
+                            Powered by Firecrawl + Google Gemini 2.5 Flash. Reports are downloadable as print-ready PDF.
+                        </p>
+                        <div class="card-meta">
+                            <span class="meta-tag">Next.js</span>
+                            <span class="meta-tag">Gemini AI</span>
+                            <span class="meta-tag">Firecrawl</span>
+                            <span class="meta-tag">TypeScript</span>
+                            <span class="meta-tag">Vercel</span>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://frontend-seven-wine-36.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-primary" style="text-align: center; padding: 0.7rem 1.2rem; font-size: 0.85rem;">🚀 Launch App</a>
+                        <a href="agency-os.html" class="btn-secondary" style="text-align: center; padding: 0.7rem 1.2rem; font-size: 0.85rem;">View Case Study</a>
+                        <a href="https://github.com/delapazbryon123/agency-os-frontend" target="_blank" rel="noopener noreferrer" class="btn-outline" style="text-align: center; padding: 0.7rem 1.2rem; font-size: 0.85rem;">GitHub</a>
+                    </div>
+                </div>
+
+                <!-- Placeholder slots for future projects -->
+                <div class="coming-soon-card">
+                    <h3>+ Next Live Project</h3>
+                    <p>Your next deployed app will appear here.</p>
+                </div>
+
+                <div class="coming-soon-card">
+                    <h3>+ Next Live Project</h3>
+                    <p>Your next deployed app will appear here.</p>
+                </div>
+
+            </div>
+
+            <div class="center" style="margin-top: 4rem;">
+                <a href="index.html#automations" class="btn-outline">← View All Projects</a>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; <span id="year"></span> Bryon V. Dela Paz &middot; All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+        const navbar = document.getElementById("navbar");
+        window.addEventListener("scroll", () => {
+            navbar.classList.toggle("scrolled", window.scrollY > 50);
+        });
+    </script>
+
+</body>
+</html>
