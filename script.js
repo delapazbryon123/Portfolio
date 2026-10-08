@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const navbar = document.getElementById("navbar");
     window.addEventListener("scroll", () => {
         if (window.scrollY > 50) {
-            navbar.classList.add("scrolled");
+            navbar?.classList.add("scrolled");
         } else {
-            navbar.classList.remove("scrolled");
+            navbar?.classList.remove("scrolled");
         }
     });
 
@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function toggleMenu() {
         mobileMenu.classList.toggle("active");
+        mobileMenuBtn.setAttribute("aria-expanded", String(mobileMenu.classList.contains("active")));
     }
 
     if (mobileMenuBtn) {
@@ -37,61 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // ─────────────────────────────────────────────
     // Hero Frame-Sequence Animation (80 JPG frames)
     // ─────────────────────────────────────────────
-    const canvas = document.getElementById("heroCanvas");
-    if (canvas) {
-        const ctx = canvas.getContext("2d");
-        const TOTAL_FRAMES = 80;
-        const FPS = 24; // frames per second — smooth cinematic feel
-        const FRAME_INTERVAL = 1000 / FPS;
-
-        const BASE_NAME = "52c83c13-ce6e-4132-a8b5-ec62d70b7a87";
-
-        // Pre-load all frames
-        const frames = [];
-        let loadedCount = 0;
-        let animationStarted = false;
-
-        function padIndex(i) {
-            return String(i).padStart(3, "0");
-        }
-
-        function startAnimation() {
-            if (animationStarted) return;
-            animationStarted = true;
-
-            let currentFrame = 0;
-            let lastTime = 0;
-
-            function draw(timestamp) {
-                if (timestamp - lastTime >= FRAME_INTERVAL) {
-                    const img = frames[currentFrame];
-                    if (img && img.complete) {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    }
-                    currentFrame = (currentFrame + 1) % TOTAL_FRAMES;
-                    lastTime = timestamp;
-                }
-                requestAnimationFrame(draw);
-            }
-
-            requestAnimationFrame(draw);
-        }
-
-        for (let i = 0; i < TOTAL_FRAMES; i++) {
-            const img = new Image();
-            img.src = `hero/${BASE_NAME}_${padIndex(i)}.jpg`;
-            img.onload = () => {
-                loadedCount++;
-                // Start animation as soon as first few frames are ready
-                if (loadedCount >= 5 && !animationStarted) {
-                    startAnimation();
-                }
-            };
-            frames.push(img);
-        }
-    }
-
     // ─────────────────────────────────────────────
     // Intersection Observer for scroll animations
     // ─────────────────────────────────────────────
@@ -122,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             tag: "n8n · 100+ Workflows · 15 Categories",
             title: "N8N Workflow Vault",
-            description: "A full production catalog of <strong>100+ intelligent automation workflows</strong> spanning PR &amp; media outreach, SEO app suites, AI bots, lead generation, blog publishing, video processing, and more &mdash; all built and deployed for real clients.",
+            description: "A full production catalog of <strong>100+ intelligent automation workflows</strong> spanning PR &amp; media outreach, SEO app suites, AI bots, lead generation, blog publishing, video processing, and more &mdash; including active automations, experiments, and supporting utilities.",
             tech: ["n8n", "OpenAI", "Gemini", "Multi-Agent", "Telegram", "Apify", "ClickUp", "Google Suite"],
             link: "n8n-workflows.html",
             linkText: "Explore 100+ Workflows →",
@@ -174,8 +120,8 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             tag: "Research / Design / Strategy",
-            title: "Deep Research & UX Design: Green Attic",
-            description: "Comprehensive market analysis and high-fidelity redesign for a leading Chicagoland energy contractor. Identified critical customer pain points and architected a decoupled automation system to streamline operations and enhance lead conversion.",
+            title: "Green Attic — Research & Architecture Proposal",
+            description: "An interview research and solution brief exploring common contractor workflow challenges. Proposed CRM-to-ClickUp handoffs, internal knowledge retrieval, customer updates, and field-to-content automation. This is a proposal, not a deployed client implementation.",
             tech: ["Research Skills", "UI/UX Design", "Workflow Strategy", "Decoupled Architecture"],
             link: "green-attic-presentation.html",
             linkText: "View Case Study"
@@ -207,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     ];
 
+    projects.push({tag: "AI / Audio / Python", title: "Meeting Intelligence", description: "A meeting-processing pipeline that transcribes audio, compares text sentiment with audio-model estimates, and stores structured meeting summaries. Model estimates are signals for review, not reliable judgments about a person's feelings.", tech: ["Python", "Whisper", "PostgreSQL", "GitHub Actions"], link: "meeting-intelligence.html", linkText: "Explore the pipeline"});
     const projectsGrid = document.getElementById("dynamic-projects-grid");
     if (projectsGrid) {
         projects.forEach(project => {
@@ -257,6 +204,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
             }
 
+            card.dataset.search = [project.title, project.tag, ...project.tech].join(' ').toLowerCase();
+            card.dataset.category = /SOP|Lead Gen|Research/.test(project.tag) ? 'Operations' : /SEO|Content/.test(project.tag) ? 'SEO' : 'AI';
             projectsGrid.appendChild(card);
         });
     }

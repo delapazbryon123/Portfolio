@@ -10,9 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="experience.css">
 </head>
 
-<body>
+<body class="portfolio-home">
 
     <div class="bg-grid"></div>
 
@@ -60,18 +61,12 @@
         <!-- Hero Section -->
         <section id="home" class="hero section-padding reveal">
             <div class="hero-content">
-                <p class="eyebrow">Bryon V. Dela Paz</p>
+                <p class="eyebrow">BRYON V. DELA PAZ <span> / </span> OPERATIONS + AI</p>
                 <h1 class="hero-title">
-                    <span class="text-white">Scaling Your Business with</span>
-                    <span class="text-yellow"> AI &amp; Performance-Driven Strategies</span>
+                    <span class="text-white">Less busywork.</span>
+                    <span class="text-yellow"> More possibility.</span>
                 </h1>
-                <p class="hero-subtitle">
-                    Virtual/Executive Assistant &middot; Team Lead &middot; Investor Relations Executive &middot;
-                    Project Manager &middot; Business
-                    Owner. I build custom automation systems and manage operations for founders &mdash; helping them
-                    reclaim
-                    20+ hours a week and grow their bottom line.
-                </p>
+                <p class="hero-subtitle">I'm Bryon, an operations specialist and AI automation builder. I connect the tools, people, and processes that keep a business moving — so founders can focus on what comes next.</p>
                 <div class="hero-actions">
                     <a href="mailto:Delapazbryon123@gmail.com" class="btn-primary">Get In Touch</a>
                     <a href="#automations" class="btn-secondary">View My Work</a>
@@ -79,7 +74,7 @@
                 </div>
             </div>
             <div class="hero-image-wrap">
-                <canvas id="heroCanvas" class="hero-canvas" width="1280" height="720"></canvas>
+                <div class="robot-stage"><span class="stage-label">YOUR CO-PILOT FOR THE TOUR</span><canvas id="heroCanvas" class="hero-canvas" width="1280" height="720" role="img" aria-label="Bryon's yellow robot companion"></canvas><p id="robot-caption">Big ideas. Little robot.</p><div class="robot-actions"><button type="button" data-robot-action="wave">Say hello ↗</button><button type="button" data-robot-action="dance">Dance break ✦</button><button type="button" data-robot-action="tour">Show me around ↓</button></div></div>
             </div>
         </section>
 
@@ -141,9 +136,10 @@
         <section id="automations" class="automations section-padding reveal">
             <div class="section-header center">
                 <span class="section-label">FEATURED WORK</span>
-                <h2>Powerful Automations</h2>
+                <h2>Good systems. Real work.</h2><p>Explore the automations, applications, and operations behind the work.</p>
             </div>
 
+            <div class="project-controls" role="group" aria-label="Filter projects"><button type="button" data-filter="all" aria-pressed="true">All work</button><button type="button" data-filter="AI">AI &amp; automation</button><button type="button" data-filter="SEO">SEO &amp; content</button><button type="button" data-filter="Operations">Operations</button><label class="project-search">Find a project <input type="search" id="project-search" placeholder="Try ClickUp or voice AI"></label></div><p id="project-count" role="status"></p>
             <div id="dynamic-projects-grid" class="projects-grid">
                 <!-- Projects are now generated dynamically via script.js for easy updates! -->
             </div>
@@ -156,15 +152,7 @@
                 <h2>Professional Background</h2>
             </div>
 
-            <div class="glass-card glow-card center" style="max-width: 800px; margin: 0 auto; padding: 4rem 2rem;">
-                <h3 style="font-size: 1.8rem; margin-bottom: 1rem; color: var(--text-white);">Extensive Background in Operations &amp; AI</h3>
-                <p style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 2.5rem; line-height: 1.8;">
-                    From leading cross-functional teams at Magic Inc., orchestrating operations for the J. Boswell Real Estate Team, to currently consulting as an independent AI &amp; Operations Expert &mdash; I specialize in scaling businesses, driving efficiency, and architecting robust workflows.
-                </p>
-                <div class="hero-actions" style="justify-content: center;">
-                    <a href="cv.html" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;">View Detailed CV (New Tab)</a>
-                </div>
-            </div>
+            <div class="career-list"><article><span>2020–2026</span><div><h3>Operations &amp; AI Automation</h3><p>Independent consulting · Business systems, CRM integrations, workflow design, and executive support.</p></div></article><article><span>2023–2024</span><div><h3>Operations, Recruiting &amp; Marketing</h3><p>J. Boswell Team · Real estate processes, team coordination, and marketing operations.</p></div></article><article><span>2020–2023</span><div><h3>Team Leadership &amp; Executive Assistance</h3><p>Magic Inc. &amp; Fruitstreet Health · Remote team management, research, and project delivery.</p></div></article><article><span>2020–2022</span><div><h3>Investor Relations &amp; Documentation</h3><p>Andiamo / Amicassa Real Estate · Investor outreach, research, and operational tracking.</p></div></article></div><a href="cv.html" class="btn-secondary">Explore my full CV ↗</a>
         </section>
 
         <!-- Skills Section -->
@@ -181,7 +169,7 @@
                     <div class="skill-tags">
                         <span>n8n</span><span>Zapier</span><span>Workflow Design</span>
                         <span>API Integration</span><span>Process Automation</span><span>Voice AI</span><span>AI Agents</span>
-                        <span>OpenAI GPT-4</span><span>Claude Code</span><span>ElevenLabs</span>
+                        <span>OpenAI</span><span>Claude Code</span><span>ElevenLabs</span>
                         <span>Emergent</span><span>Antigravity</span><span>Prompt Engineering</span>
                     </div>
                 </div>
@@ -252,7 +240,7 @@
                         <h3>Magic Inc. Certifications</h3>
                     </div>
                     <ul class="cert-list">
-                        <li>&#9989; Asana Basics</li>
+                        <li>&#9989; Asana Basics</li><li>&#9989; Advanced Asana</li><li>&#9989; Sales 101</li><li>&#9989; Data Privacy</li><li>&#9989; Basic Bookkeeping</li><li>&#9989; Scheduling Appointments</li>
                         <li>&#9989; Calendaring Basics</li>
                         <li>&#9989; Research Basics</li>
                         <li>&#9989; Social Media Management</li>
@@ -328,6 +316,7 @@
     </footer>
 
     <script src="script.js"></script>
+<script src="experience.js"></script>
 </body>
 
 </html>
